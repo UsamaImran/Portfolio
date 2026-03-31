@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 const links = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
@@ -28,7 +28,9 @@ export default function Navbar() {
           ? "bg-cream/95 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
-      style={{ background: scrolled ? "rgba(245,240,232,0.95)" : "transparent" }}
+      style={{
+        background: scrolled ? "rgba(245,240,232,0.95)" : "transparent",
+      }}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
         {/* Logo */}
