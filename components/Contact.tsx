@@ -15,7 +15,7 @@ function useReveal() {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -72,7 +72,7 @@ export default function Contact() {
               className="text-xs tracking-[0.25em] uppercase font-mono"
               style={{ color: "var(--gold)" }}
             >
-              Let's Connect
+              {`Let's Connect`}
             </span>
           </div>
           <h2
@@ -90,9 +90,9 @@ export default function Contact() {
             className="mt-4 text-base max-w-lg leading-relaxed"
             style={{ color: "rgba(245,240,232,0.5)", fontWeight: 300 }}
           >
-            I'm open to new opportunities, collaborations, and interesting
+            {`I'm open to new opportunities, collaborations, and interesting
             conversations. Feel free to reach out through any of the channels
-            below.
+            below.`}
           </p>
         </div>
 
@@ -107,7 +107,9 @@ export default function Contact() {
               key={i}
               href={item.href}
               target={item.label === "LinkedIn" ? "_blank" : undefined}
-              rel={item.label === "LinkedIn" ? "noopener noreferrer" : undefined}
+              rel={
+                item.label === "LinkedIn" ? "noopener noreferrer" : undefined
+              }
               className="block p-8 transition-all duration-300 group"
               style={{ background: "rgba(255,255,255,0.03)" }}
               onMouseEnter={(e) => {
