@@ -21,40 +21,106 @@ export const skills = [
   {
     category: "Core Stack",
     items: [
-      "JavaScript",
       "TypeScript",
-      "React JS",
+      "JavaScript",
+      "React.js",
       "Next.js",
       "Node.js",
-      "Express JS",
-      "Nest. js",
+      "Express.js",
+      "Nest.js",
     ],
   },
   {
-    category: "State & Data",
-    items: ["Redux", "Redux Toolkit", "Zustand", "GraphQL", "RESTful APIs"],
+    category: "Backend & System Design",
+    items: [
+      "Microservices",
+      "Distributed Systems",
+      "Monolithic Architecture",
+      "RESTful APIs",
+      "GraphQL",
+      "Kafka",
+      "RabbitMQ",
+    ],
   },
   {
-    category: "UI & Styling",
-    items: ["HTML/CSS", "Material UI", "Tailwind CSS", "Algolia Search"],
+    category: "Databases & Data Layer",
+    items: ["PostgreSQL", "MongoDB", "Prisma", "Mongoose", "Redis"],
   },
   {
-    category: "Cloud & Tools",
-    items: ["AWS Amplify", "Postman", "GitHub", "Bitbucket", "Asana"],
+    category: "State Management & Data Fetching",
+    items: [
+      "Redux",
+      "Redux Toolkit",
+      "Zustand",
+      "Tanstack Query",
+      "Algolia Search",
+    ],
   },
   {
-    category: "Practices",
+    category: "Frontend & UI",
+    items: [
+      "HTML/CSS",
+      "Tailwind CSS",
+      "Material UI",
+      "Ant Design",
+      "Headless UI",
+    ],
+  },
+  {
+    category: "DevOps & Deployment",
+    items: [
+      "Docker",
+      "CI/CD (GitHub Actions)",
+      "Environment Configuration",
+      "Basic Linux",
+      "Nginx (Basic)",
+    ],
+  },
+  {
+    category: "Payments & Fintech Integrations",
+    items: ["Stripe", "Plaid"],
+  },
+  {
+    category: "Monitoring & Observability",
+    items: [
+      "Prometheus",
+      "Grafana",
+      "Sentry",
+      "LogRocket",
+      "Logging",
+      "Error Tracking",
+      "Performance Monitoring",
+    ],
+  },
+  {
+    category: "Testing",
+    items: [
+      "Jest",
+      "React Testing Library",
+      "Supertest",
+      "Unit Testing",
+      "Integration Testing",
+    ],
+  },
+  {
+    category: "Tools & Collaboration",
+    items: [
+      "GitHub",
+      "Bitbucket",
+      "Postman",
+      "Asana",
+      "Digital Ocean",
+      "AWS Amplify",
+    ],
+  },
+  {
+    category: "Engineering Practices",
     items: [
       "Agile / Scrum",
-      "Unit & Integration Testing",
       "Code Review",
       "Performance Optimization",
       "Technical Documentation",
     ],
-  },
-  {
-    category: "Databases & ORMS",
-    items: ["PostgresQl", "Prisma", "Mongodb", "Mongoose"],
   },
 ];
 
@@ -125,7 +191,7 @@ export const projects = [
     githubUrl: "",
     featured: true,
     role: "Full-Stack Engineer",
-    year: "2023",
+    year: "2025",
     type: "Product — SaaS",
     problem:
       "Businesses managing accounts payable faced fragmented workflows — manually writing checks, reconciling payments in QuickBooks separately, and storing documents across unstructured systems. This created bottlenecks, audit risks, and hours of duplicated effort per week.",
@@ -159,7 +225,7 @@ export const projects = [
     githubUrl: "",
     featured: true,
     role: "Full-Stack Engineer",
-    year: "2023",
+    year: "2024",
     type: "Product — FinTech",
     problem:
       "Consumers navigating debt relief faced an opaque, paper-heavy process — manually gathering bank statements, filling out repetitive forms, and waiting days for a counselor to assess their situation. Conversion rates suffered due to friction at every step.",
@@ -190,7 +256,7 @@ export const projects = [
     githubUrl: "",
     featured: false,
     role: "Frontend Engineer",
-    year: "2022",
+    year: "2023",
     type: "Product — Logistics SaaS",
     problem:
       "Dispatch teams relied on phone calls and spreadsheets to coordinate drivers and track deliveries. There was no real-time visibility into fleet status, leading to missed ETAs, duplicated effort, and poor customer communication.",
@@ -213,8 +279,8 @@ export const projects = [
     liveUrl: "https://synccos.com/connexabi",
     githubUrl: "",
     featured: false,
-    role: "Mobile Developer",
-    year: "2022",
+    role: "Full Stack Engineer",
+    year: "2025",
     type: "Product — Mobile App",
     problem:
       "Professionals at events and meetings still relied on paper business cards that get lost, go out of date, and can't be searched or organized. There was no frictionless way to share and store contact information digitally in the moment.",
