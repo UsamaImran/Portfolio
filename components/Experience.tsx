@@ -1,31 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { experience } from "@/lib/data";
-
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return ref;
-}
+import { useReveal } from "@/hooks/useReveal";
 
 function ExperienceCard({
   job,
@@ -52,8 +28,7 @@ function ExperienceCard({
           style={{ color: "var(--gold)" }}
         >
           {job.period.split("–")[0].trim()}
-          <br />—{" "}
-          {job.period.split("–")[1]?.trim() || "Present"}
+          <br />— {job.period.split("–")[1]?.trim() || "Present"}
         </p>
         <p
           className="text-xs tracking-wider uppercase font-mono"

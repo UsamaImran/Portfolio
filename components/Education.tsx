@@ -1,27 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { education } from "@/lib/data";
-
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
+import { useReveal } from "@/hooks/useReveal";
 
 export default function Education() {
   const titleRef = useReveal();
