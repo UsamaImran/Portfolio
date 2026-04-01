@@ -2,30 +2,6 @@
 
 A clean, elegant portfolio built with **Next.js 14**, **Tailwind CSS**, and **Framer Motion**.
 
-## 🚀 Deploy to Vercel (3 steps)
-
-### Option A — Vercel CLI (Recommended)
-
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Install Vercel CLI
-npm i -g vercel
-
-# 3. Deploy
-vercel
-```
-
-Follow the prompts — it auto-detects Next.js. Your site will be live in ~60 seconds.
-
-### Option B — GitHub + Vercel Dashboard
-
-1. Push this folder to a GitHub repository
-2. Go to [vercel.com](https://vercel.com) → **Add New Project**
-3. Import your repo → Vercel auto-detects Next.js settings
-4. Click **Deploy** ✓
-
 ## 🛠 Local Development
 
 ```bash
@@ -54,14 +30,6 @@ portfolio/
 │   └── data.ts           # ← Edit your info here
 └── ...config files
 ```
-
-## ✏️ Customization
-
-All your personal info lives in **`lib/data.ts`**. Edit that file to update:
-- Name, title, contact details
-- Work experience
-- Skills
-- Education
 
 ## Tech Stack
 
