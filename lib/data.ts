@@ -10,6 +10,8 @@ export const personal = {
     "Accomplished Full-Stack Software Engineer with 6+ years of experience delivering scalable web applications, RESTful APIs, and cloud-enabled solutions across product-based and service-driven environments. Expert in React, Next.js, Node.js, and MERN stack architectures, with a proven track record of improving system performance by 35%, increasing stability by 18%, and leading 20+ feature releases.",
 };
 
+export const githubLink = "https://github.com/UsamaImran";
+
 export const stats = [
   { value: "6+", label: "Years Experience" },
   { value: "35%", label: "Performance Gains" },
