@@ -311,6 +311,42 @@ export const projects = [
       "Responsive and intuitive UI for seamless cross-device usage",
     ],
   },
+  {
+    title: "Planwell | Personal Financial Advisor",
+    description:
+      "A web-based financial planning platform that helps users make smarter financial decisions through personalized insights, goal tracking, and intelligent automation.",
+    tags: [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Framer Motion",
+      "Formik",
+      "Material UI",
+      "Data Visualization",
+    ],
+    liveUrl: "https://www.planwell.io/",
+    githubUrl: "",
+    featured: false,
+    role: "Frontend Engineer",
+    year: "2021",
+    type: "Product — Web Platform",
+
+    problem:
+      "Users struggle to manage their finances effectively due to fragmented tools, lack of clarity on long-term outcomes, and difficulty translating financial data into actionable decisions.",
+
+    solution:
+      "Developed a modern financial planning interface that centralizes user financial data and presents it through intuitive dashboards, goal-based workflows, and intelligent recommendations, enabling users to better understand and optimize their financial future.",
+
+    features: [
+      "Personalized financial dashboards with real-time insights",
+      "Goal-based planning (savings, expenses, long-term financial targets)",
+      "Interactive charts for financial trends and projections",
+      "Form-driven data input flows using Formik",
+      "Smooth UI/UX with animations powered by Framer Motion",
+      "Secure authentication and session management",
+      "Responsive design for seamless cross-device experience",
+    ],
+  },
 ];
 
 export const education = {
