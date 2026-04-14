@@ -27,7 +27,7 @@ portfolio/
 │   ├── Education.tsx     # Academic background
 │   └── Contact.tsx       # Contact + footer
 ├── lib/
-│   └── data.ts           # ← Edit your info here
+│   └── data.ts           
 └── ...config files
 ```
 
