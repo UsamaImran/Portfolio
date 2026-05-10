@@ -37,6 +37,7 @@ export const skills = [
     items: [
       "Microservices",
       "Distributed Systems",
+      "Event Driven Architecture",
       "Monolithic Architecture",
       "RESTful APIs",
       "GraphQL",
@@ -364,3 +365,42 @@ export const education = {
     "Introduction to Machine Learning",
   ],
 };
+
+export const openSource = [
+  {
+    title: "rabbitmq-common",
+    type: "Infrastructure Library",
+    description:
+      "Reusable RabbitMQ abstraction library for Node.js and TypeScript microservices.",
+
+    tags: ["TypeScript", "RabbitMQ", "Node.js", "Microservices", "npm"],
+
+    githubUrl: "https://github.com/UsamaImran/rabbitMQ-common",
+    npmUrl: "https://www.npmjs.com/package/rabbitmq-common",
+
+    highlights: [
+      "Standardized publisher and consumer patterns",
+      "Reduced RabbitMQ boilerplate across services",
+      "TypeScript-first API design",
+      "Reusable queue management abstraction",
+      "Published and maintained as an npm package",
+    ],
+  },
+
+  {
+    title: "react-generic-list",
+    type: "UI Component",
+    description:
+      "A lightweight, TypeScript-first generic list component for React that renders any data type through a strongly-typed render prop — eliminating repetitive list boilerplate while preserving full type inference end-to-end.",
+    tags: ["React", "TypeScript", "npm", "Generics", "Component"],
+    githubUrl: "https://github.com/UsamaImran/react-generic-list",
+    npmUrl: "https://www.npmjs.com/package/react-generic-list",
+    highlights: [
+      "Generic <T> type parameter propagates from data to render prop automatically",
+      "Zero boilerplate — replaces repetitive .map() patterns across the codebase",
+      "TypeScript-first API with full IntelliSense support in any IDE",
+      "Framework-agnostic rendering via a flexible renderItem callback",
+      "Published and maintained as a standalone npm package",
+    ],
+  },
+];
