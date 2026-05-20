@@ -46,6 +46,7 @@ function PackageCard({
 
   return (
     <div
+      id="open-source"
       ref={ref}
       className="reveal flex flex-col border transition-all duration-300"
       style={{
