@@ -372,12 +372,9 @@ export const openSource = [
     type: "Infrastructure Library",
     description:
       "Reusable RabbitMQ abstraction library for Node.js and TypeScript microservices.",
-
     tags: ["TypeScript", "RabbitMQ", "Node.js", "Microservices", "npm"],
-
     githubUrl: "https://github.com/UsamaImran/rabbitMQ-common",
     npmUrl: "https://www.npmjs.com/package/rabbitmq-common",
-
     highlights: [
       "Standardized publisher and consumer patterns",
       "Reduced RabbitMQ boilerplate across services",
@@ -386,7 +383,6 @@ export const openSource = [
       "Published and maintained as an npm package",
     ],
   },
-
   {
     title: "react-generic-list",
     type: "UI Component",
@@ -401,6 +397,31 @@ export const openSource = [
       "TypeScript-first API with full IntelliSense support in any IDE",
       "Framework-agnostic rendering via a flexible renderItem callback",
       "Published and maintained as a standalone npm package",
+    ],
+  },
+  {
+    title: "axios-auth-client",
+    type: "HTTP Client Library",
+    description:
+      "A lightweight, framework-agnostic Axios wrapper with automatic JWT access token refresh (proactive + reactive), 401 retry logic, and custom refresh support for Node.js and browsers.",
+    tags: [
+      "Axios",
+      "TypeScript",
+      "JWT",
+      "Authentication",
+      "HTTP Client",
+      "npm",
+    ],
+    githubUrl: "https://github.com/UsamaImran/axios-auth-client",
+    npmUrl: "https://www.npmjs.com/package/axios-auth-client",
+    highlights: [
+      "Automatic token refresh — proactive (expiry check) + reactive (401 response)",
+      "Request queuing prevents multiple concurrent refresh token calls",
+      "Framework agnostic — works with React, Vue, Angular, Node.js, and more",
+      "Zero hardcoded storage — token management is fully injected via callbacks",
+      "Full TypeScript support with generic response types",
+      "Customizable — custom refresh function, token response path, and header names",
+      "Works in all JavaScript environments (browsers, Node.js, Deno, Bun)",
     ],
   },
 ];
