@@ -371,32 +371,18 @@ export const openSource = [
     title: "rabbitmq-common",
     type: "Infrastructure Library",
     description:
-      "Reusable RabbitMQ abstraction library for Node.js and TypeScript microservices.",
+      "A robust, production-ready RabbitMQ wrapper for Node.js and TypeScript microservices. Provides standardized Producer and Consumer abstractions with automatic connection management, intelligent recovery, and full exchange support (fanout, topic, direct).",
     tags: ["TypeScript", "RabbitMQ", "Node.js", "Microservices", "npm"],
     githubUrl: "https://github.com/UsamaImran/rabbitMQ-common",
     npmUrl: "https://www.npmjs.com/package/rabbitmq-common",
     highlights: [
-      "Standardized publisher and consumer patterns",
-      "Reduced RabbitMQ boilerplate across services",
-      "TypeScript-first API design",
-      "Reusable queue management abstraction",
-      "Published and maintained as an npm package",
-    ],
-  },
-  {
-    title: "react-generic-list",
-    type: "UI Component",
-    description:
-      "A lightweight, TypeScript-first generic list component for React that renders any data type through a strongly-typed render prop — eliminating repetitive list boilerplate while preserving full type inference end-to-end.",
-    tags: ["React", "TypeScript", "npm", "Generics", "Component"],
-    githubUrl: "https://github.com/UsamaImran/react-generic-list",
-    npmUrl: "https://www.npmjs.com/package/react-generic-list",
-    highlights: [
-      "Generic <T> type parameter propagates from data to render prop automatically",
-      "Zero boilerplate — replaces repetitive .map() patterns across the codebase",
-      "TypeScript-first API with full IntelliSense support in any IDE",
-      "Framework-agnostic rendering via a flexible renderItem callback",
-      "Published and maintained as a standalone npm package",
+      "First-class support for Fanout, Topic, and Direct exchanges (v4)",
+      "Fully backward compatible with previous queue-only usage",
+      "Automated connection & channel management with exponential backoff",
+      "Built-in Dead Letter Queue (DLQ) support and malformed message protection",
+      "TypeScript-first design with strong typing and custom error classes",
+      "Pluggable logging, backpressure handling, and dynamic queue/exchange bindings",
+      "Published and actively maintained as a public npm package",
     ],
   },
   {
@@ -422,6 +408,22 @@ export const openSource = [
       "Full TypeScript support with generic response types",
       "Customizable — custom refresh function, token response path, and header names",
       "Works in all JavaScript environments (browsers, Node.js, Deno, Bun)",
+    ],
+  },
+  {
+    title: "react-generic-list",
+    type: "UI Component",
+    description:
+      "A lightweight, TypeScript-first generic list component for React that renders any data type through a strongly-typed render prop — eliminating repetitive list boilerplate while preserving full type inference end-to-end.",
+    tags: ["React", "TypeScript", "npm", "Generics", "Component"],
+    githubUrl: "https://github.com/UsamaImran/react-generic-list",
+    npmUrl: "https://www.npmjs.com/package/react-generic-list",
+    highlights: [
+      "Generic <T> type parameter propagates from data to render prop automatically",
+      "Zero boilerplate — replaces repetitive .map() patterns across the codebase",
+      "TypeScript-first API with full IntelliSense support in any IDE",
+      "Framework-agnostic rendering via a flexible renderItem callback",
+      "Published and maintained as a standalone npm package",
     ],
   },
 ];
