@@ -38,7 +38,7 @@ export default function Contact() {
     <section
       id="contact"
       className="py-24 md:py-32"
-      style={{ background: "var(--ink)" }}
+      style={{ background: "#0A0908" }}
     >
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         {/* Section header */}
@@ -59,7 +59,7 @@ export default function Contact() {
             className="font-display font-light"
             style={{
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              color: "var(--cream)",
+              color: "var(--ink)",
               letterSpacing: "-0.02em",
             }}
           >
@@ -68,7 +68,7 @@ export default function Contact() {
           </h2>
           <p
             className="mt-4 text-base max-w-lg leading-relaxed"
-            style={{ color: "rgba(245,240,232,0.5)", fontWeight: 300 }}
+            style={{ color: "var(--muted)", fontWeight: 300 }}
           >
             {`I'm open to new opportunities, collaborations, and interesting
             conversations. Feel free to reach out through any of the channels
@@ -80,7 +80,7 @@ export default function Contact() {
         <div
           ref={contentRef}
           className="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-px border"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+          style={{ borderColor: "var(--border)" }}
         >
           {contactItems.map((item, i) => (
             <a
@@ -94,7 +94,7 @@ export default function Contact() {
               style={{ background: "rgba(255,255,255,0.03)" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.background =
-                  "rgba(184,146,58,0.12)";
+                  "rgba(201,160,74,0.1)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background =
@@ -109,13 +109,13 @@ export default function Contact() {
               </span>
               <p
                 className="text-xs tracking-[0.2em] uppercase font-mono mb-2"
-                style={{ color: "rgba(245,240,232,0.4)" }}
+                style={{ color: "var(--muted)" }}
               >
                 {item.label}
               </p>
               <p
                 className="text-sm transition-colors duration-300"
-                style={{ color: "var(--cream)", fontWeight: 300 }}
+                style={{ color: "var(--ink)", fontWeight: 300 }}
               >
                 {item.value}
               </p>
@@ -126,17 +126,17 @@ export default function Contact() {
         {/* Footer */}
         <div
           className="mt-16 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4"
-          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+          style={{ borderColor: "var(--border)" }}
         >
           <p
             className="text-xs font-mono tracking-wide"
-            style={{ color: "rgba(245,240,232,0.3)" }}
+            style={{ color: "var(--muted)", opacity: 0.6 }}
           >
             © {new Date().getFullYear()} Usama Imran — All rights reserved.
           </p>
           <p
             className="text-xs font-mono tracking-wide"
-            style={{ color: "rgba(245,240,232,0.3)" }}
+            style={{ color: "var(--muted)", opacity: 0.6 }}
           >
             Senior Software Engineer · MERN Stack · Lahore, PK
           </p>

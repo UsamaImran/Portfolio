@@ -14,12 +14,12 @@ module.exports = {
         mono: ["'DM Mono'", "monospace"],
       },
       colors: {
-        cream: "#F5F0E8",
-        ink: "#1A1714",
-        gold: "#B8923A",
-        "gold-light": "#D4AA5F",
-        muted: "#7A7268",
-        border: "#E0D8CC",
+        cream: "#141210",
+        ink: "#EDE8E0",
+        gold: "#C9A04A",
+        "gold-light": "#E0BC72",
+        muted: "#8A8278",
+        border: "#2A2620",
       },
       animation: {
         "fade-up": "fadeUp 0.7s ease forwards",

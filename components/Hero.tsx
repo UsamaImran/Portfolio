@@ -112,17 +112,17 @@ export default function Hero() {
               href="#experience"
               className="px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300"
               style={{
-                background: "var(--ink)",
+                background: "var(--gold)",
                 color: "var(--cream)",
                 fontFamily: "'DM Sans', sans-serif",
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.background =
-                  "var(--gold)";
+                  "var(--gold-light)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background =
-                  "var(--ink)";
+                  "var(--gold)";
               }}
             >
               View Experience
@@ -131,7 +131,7 @@ export default function Hero() {
               href="mailto:uusamaimran@gmail.com"
               className="px-8 py-3.5 text-sm font-medium tracking-wide border transition-all duration-300"
               style={{
-                borderColor: "var(--ink)",
+                borderColor: "var(--muted)",
                 color: "var(--ink)",
                 fontFamily: "'DM Sans', sans-serif",
               }}
@@ -142,7 +142,7 @@ export default function Hero() {
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
-                  "var(--ink)";
+                  "var(--muted)";
                 (e.currentTarget as HTMLElement).style.color = "var(--ink)";
               }}
             >

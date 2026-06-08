@@ -10,11 +10,11 @@ export default function Skills() {
     <section
       id="skills"
       className="py-24 md:py-32"
-      style={{ background: "#EFEAD F" }}
+      style={{ background: "var(--cream)" }}
     >
       <div
         className="w-full py-24 md:py-32"
-        style={{ background: "rgba(26,23,20,0.03)" }}
+        style={{ background: "rgba(255,255,255,0.02)" }}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           {/* Section header */}
@@ -73,7 +73,7 @@ function SkillGroup({
       className="reveal p-6 border"
       style={{
         borderColor: "var(--border)",
-        background: "rgba(245,240,232,0.8)",
+        background: "rgba(255,255,255,0.03)",
         transitionDelay: `${index * 0.08}s`,
       }}
     >
@@ -89,7 +89,7 @@ function SkillGroup({
             key={i}
             className="text-xs px-3 py-1.5 font-mono tracking-wide transition-all duration-200"
             style={{
-              background: "var(--cream)",
+              background: "rgba(255,255,255,0.04)",
               color: "var(--muted)",
               border: "1px solid var(--border)",
             }}

@@ -103,7 +103,7 @@ function ProjectCard({
               key={i}
               className="text-xs px-2.5 py-1 font-mono"
               style={{
-                background: "rgba(26,23,20,0.05)",
+                background: "rgba(255,255,255,0.05)",
                 color: "var(--muted)",
                 border: "1px solid var(--border)",
               }}
