@@ -248,6 +248,31 @@ export const projects = [
     ],
   },
   {
+    title: "Synccos | Connexabi",
+    description:
+      "A modern web-based networking platform that enables professionals to manage contacts, define relationship context, and maintain a structured digital network — a smarter alternative to traditional business cards.",
+    tags: ["Next.js", "TypeScript", "NestJS", "Prisma", "PostgreSQL"],
+    liveUrl: "https://synccos.com/connexabi",
+    githubUrl: "",
+    featured: false,
+    role: "Full Stack Engineer",
+    year: "2025",
+    type: "Product — Web Platform",
+    problem:
+      "Traditional contact management lacks context — users can store contact details but cannot effectively represent relationships (e.g., family, professional hierarchy, or personal connections), making networks harder to navigate and utilize.",
+    solution:
+      "Built a full-stack web platform using Next.js and NestJS that allows users to create customizable contact profiles and define relationship types. The system enables structured networking, making it easier to organize, search, and understand connections in both personal and professional contexts.",
+    features: [
+      "Customizable contact profiles with flexible fields and metadata",
+      "Relationship tracking system (e.g., family, professional roles like manager, colleague, etc.)",
+      "Advanced contact management with tagging, notes, and powerful search",
+      "Secure authentication and user management",
+      "RESTful API architecture for integrations and data portability",
+      "Optimized PostgreSQL schema using Prisma ORM for relational data modeling",
+      "Responsive and intuitive UI for seamless cross-device usage",
+    ],
+  },
+  {
     title: "AOT | Always On Time",
     description: `Many service-based businesses, including health and wellness, arts, medical clinics, and more are spending hours on manual work and face challenges in customer conversion and scaling, taking appointments via phone calls, forms, social networks, or messaging apps.
 
@@ -287,31 +312,7 @@ export const projects = [
       "Form-driven workflows with validation for onboarding and job assignments",
     ],
   },
-  {
-    title: "Synccos | Connexabi",
-    description:
-      "A modern web-based networking platform that enables professionals to manage contacts, define relationship context, and maintain a structured digital network — a smarter alternative to traditional business cards.",
-    tags: ["Next.js", "TypeScript", "NestJS", "Prisma", "PostgreSQL"],
-    liveUrl: "https://synccos.com/connexabi",
-    githubUrl: "",
-    featured: false,
-    role: "Full Stack Engineer",
-    year: "2025",
-    type: "Product — Web Platform",
-    problem:
-      "Traditional contact management lacks context — users can store contact details but cannot effectively represent relationships (e.g., family, professional hierarchy, or personal connections), making networks harder to navigate and utilize.",
-    solution:
-      "Built a full-stack web platform using Next.js and NestJS that allows users to create customizable contact profiles and define relationship types. The system enables structured networking, making it easier to organize, search, and understand connections in both personal and professional contexts.",
-    features: [
-      "Customizable contact profiles with flexible fields and metadata",
-      "Relationship tracking system (e.g., family, professional roles like manager, colleague, etc.)",
-      "Advanced contact management with tagging, notes, and powerful search",
-      "Secure authentication and user management",
-      "RESTful API architecture for integrations and data portability",
-      "Optimized PostgreSQL schema using Prisma ORM for relational data modeling",
-      "Responsive and intuitive UI for seamless cross-device usage",
-    ],
-  },
+
   {
     title: "Planwell | Personal Financial Advisor",
     description:
@@ -427,3 +428,378 @@ export const openSource = [
     ],
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Case Studies
+// Keyed by exact project title from the projects array.
+// The project page checks for a matching key and renders the extended layout.
+// ---------------------------------------------------------------------------
+
+export type CaseStudyMetric = {
+  label: string;
+  value: string;
+  sub: string;
+};
+
+export type CaseStudyConstraint = {
+  text: string;
+};
+
+export type CaseStudyDecision = {
+  title: string;
+  why: string;
+  result: string;
+};
+
+export type CaseStudy = {
+  subtitle: string;
+  duration: string;
+  metrics: CaseStudyMetric[];
+  metricsNote: string;
+  problemLong: string[];
+  constraints: CaseStudyConstraint[];
+  architecture: {
+    row1: { label: string; title: string }[];
+    row2: { label: string; title: string }[];
+  };
+  decisions: CaseStudyDecision[];
+  outcomes: string[];
+  takeaway: string;
+};
+
+export const caseStudies: Record<string, CaseStudy> = {
+  // ── Mitigately ────────────────────────────────────────────────────────────
+  Mitigately: {
+    subtitle:
+      "A greenfield debt restructuring platform connecting users with creditors through a 16–20 step intake flow, dynamic contract generation, and a legacy CRM integration that dated to 2008.",
+    duration: "8 months · Greenfield build · Small team",
+    metrics: [
+      {
+        label: "Users onboarded",
+        value: "2,400+",
+        sub: "through full 16–20 step flow",
+      },
+      {
+        label: "Completion rate",
+        value: "~74%",
+        sub: "up from ~41% before resume feature",
+      },
+      {
+        label: "API latency",
+        value: "−65%",
+        sub: "after async queue for CRM sync",
+      },
+      {
+        label: "Timeline",
+        value: "8 mo",
+        sub: "design to production",
+      },
+    ],
+    metricsNote:
+      "* User and completion figures are approximate. Latency improvement reflects p95 API response time after queue introduction.",
+    problemLong: [
+      "Mitigately needed to guide financially distressed users through a 16–20 step intake process — sometimes across days or weeks — and then automatically generate a legal contract, route it for e-signature, and sync everything into a legacy CRM system last meaningfully updated in 2008.",
+      "The CRM was non-negotiable: it was the authoritative source of creditor data and identity. But its APIs were partially undocumented, returned HTTP 200 for both success and failure states, and had unpredictable response structures depending on input context. Designing around it — without hiding it — became the central engineering challenge.",
+    ],
+    constraints: [
+      {
+        text: "CRM could not be replaced — it was the system of record for all creditor data",
+      },
+      {
+        text: "Sessions had to survive days or weeks — users resume exactly where they left off",
+      },
+      {
+        text: "CRM APIs were partially undocumented with unreliable HTTP status codes",
+      },
+      {
+        text: "OTP verification required before any contract could be generated or signed",
+      },
+      {
+        text: "Data integrity across both MongoDB and CRM had to be guaranteed at all times",
+      },
+      {
+        text: "UX had to remain consistent across all 16–20 dynamic onboarding steps",
+      },
+    ],
+    architecture: {
+      row1: [
+        { label: "Frontend", title: "Step-based state machine" },
+        { label: "Backend", title: "Orchestration + validation layer" },
+        { label: "Persistence", title: "Dual-write: MongoDB + CRM sync" },
+      ],
+      row2: [
+        { label: "Auth", title: "Twilio OTP" },
+        { label: "Contract", title: "Dynamic generation + Anvil e-sign" },
+        { label: "Post-onboarding", title: "User dashboard + loan tracking" },
+      ],
+    },
+    decisions: [
+      {
+        title: "Treating onboarding as a state machine, not a form flow",
+        why: "A traditional multi-step form would have collapsed under 16–20 steps with shared state, resumability, and per-step validation. I implemented a centralized step engine using React Context + Formik, where each step is an isolated validation unit within a global workflow state — index-driven, schema-validated, and type-safe throughout.",
+        result:
+          "Enabled resume, skip-ahead, and validation without coupling between steps",
+      },
+      {
+        title: "Dual-write architecture for CRM reliability",
+        why: 'The CRM\'s most fundamental API — "get user by phone number" — always returned HTTP 200 regardless of whether a user existed. Standard error handling was useless. Rather than working around individual broken endpoints, I redesigned the data layer: MongoDB became the primary operational store, and the CRM was treated as a downstream sync target. An inverted lookup (query Mongo → extract CRM ID → fetch CRM record by ID) made responses deterministic.',
+        result: "Eliminated unreliable CRM query responses as a failure point",
+      },
+      {
+        title: "Moving CRM sync off the request path",
+        why: "Initially, CRM writes were synchronous and blocking. Every onboarding step that touched the CRM added latency and a potential failure point to what should have been a fast user-facing response. I introduced an internal async queue: MongoDB writes remained immediate, while CRM sync executed in the background. This also meant CRM failures were isolated — they didn't take down user-facing operations.",
+        result:
+          "~65% reduction in p95 API response time; CRM failures no longer surface to users",
+      },
+      {
+        title: "Persisting step state to the backend for resumability",
+        why: "Users in a debt restructuring flow may need days between sessions. Storing state only in the browser would lose it. Step progress and partial form data were persisted to the backend on each transition, so on re-entry the system could reconstruct the last completed step, partial data, and navigation state exactly.",
+        result:
+          "Completion rate improved from ~41% to ~74% after this was introduced",
+      },
+    ],
+    outcomes: [
+      "Built a complete 16–20 step onboarding engine with persistent, resumable state from scratch in 8 months",
+      "Designed a stable integration layer around an unpredictable legacy CRM through dual-write + inverted lookup",
+      "Reduced API latency by ~65% by moving CRM sync off the synchronous request path",
+      "Improved onboarding completion from ~41% to ~74% with backend-persisted resumability",
+      "Delivered full contract generation + e-signature flow via Anvil with OTP-secured access",
+      "Shipped a post-onboarding dashboard with live loan status and installment tracking",
+    ],
+    takeaway:
+      "In real-world systems, reliability isn't achieved by waiting for perfect APIs. It's built by designing around imperfect external systems — through abstraction, persistence, and controlled synchronization. The CRM never got better. The system got resilient enough that it didn't matter.",
+  },
+
+  // ── Synccos | Checkwriter ─────────────────────────────────────────────────
+  "Synccos | Checkwriter": {
+    subtitle:
+      "A live, multi-tenant financial platform modernized incrementally — evolving from a tightly coupled single-tenant system into a scalable architecture while remaining in continuous production with active financial users throughout.",
+    duration:
+      "Ongoing · Production modernization · Active financial users throughout",
+    metrics: [
+      {
+        label: "Connection instances",
+        value: "30+→1",
+        sub: "MongoDB connections consolidated to singleton",
+      },
+      {
+        label: "State management",
+        value: "Redux→TQ",
+        sub: "server state migrated to TanStack Query",
+      },
+      {
+        label: "Multi-tenancy",
+        value: "Full",
+        sub: "users + orgs sharing financial entities",
+      },
+      {
+        label: "Downtime",
+        value: "Zero",
+        sub: "all changes shipped without taking system offline",
+      },
+    ],
+    metricsNote:
+      "* All changes were delivered incrementally under continuous production constraints with no downtime.",
+    problemLong: [
+      "Synccos Checkwriter was already live and handling real financial operations when new requirements arrived — multi-tenant support, expanded payment workflows, and organization-level banking entities. The system worked, but it had grown into a tightly coupled architecture that made every new feature a risk.",
+      "Redux was handling both client and server state, the MongoDB schema embedded financial entities directly inside user documents under a single-tenant assumption, and 30+ MongoDB connection instances had accumulated across modules — a hidden infrastructure fault that only surfaced once the schema was touched. The core constraint was non-negotiable: the system could not go offline, could not be rewritten, and new features had to ship continuously while the architecture underneath was being rebuilt.",
+    ],
+    constraints: [
+      {
+        text: "System was live with active financial users — zero downtime permitted at any point",
+      },
+      {
+        text: "No rewrites — all changes had to be incremental and backward compatible",
+      },
+      {
+        text: "New features had to ship continuously while refactoring was in progress",
+      },
+      {
+        text: "Financial correctness was critical — payment, balance, and reconciliation logic had zero tolerance for inconsistency",
+      },
+      {
+        text: "Multi-tenant ownership model had to support both users and organizations sharing the same financial entities",
+      },
+      {
+        text: "Legacy Redux patterns had to be migrated without breaking existing flows",
+      },
+    ],
+    architecture: {
+      row1: [
+        {
+          label: "Frontend",
+          title: "Redux (client state) + TanStack Query (server state)",
+        },
+        { label: "Backend", title: "Express + normalized MongoDB collections" },
+        { label: "Ownership", title: "entityType / entityId unified model" },
+      ],
+      row2: [
+        { label: "Auth", title: "MFA — email, Twilio OTP, authenticator app" },
+        { label: "Payments", title: "Stripe + QuickBooks sync" },
+        { label: "Infra", title: "Singleton DB connection + compound indexes" },
+      ],
+    },
+    decisions: [
+      {
+        title: "Separating client state from server state",
+        why: "Redux was doing double duty — managing both UI state and remote data fetching. This created deeply coupled reducer logic, redundant synchronization patterns, and brittle loading states scattered across the codebase. I drew a clear boundary: Redux retained ownership of client-only state, while all server interactions moved to TanStack Query. Data-fetching logic became declarative, caching became automatic, and the Redux surface area shrank to only what belonged there.",
+        result:
+          "Eliminated redundant state sync patterns; API interactions became predictable and independently cacheable",
+      },
+      {
+        title: "Normalizing the MongoDB schema for multi-tenancy",
+        why: "The original schema embedded bank accounts and payees directly within user documents — a clean design for a single-tenant system, but impossible to extend to organizations. I decomposed the schema into separate collections and introduced a unified ownership model using explicit entityType and entityId fields. A single bank account could now be owned by either a user or an organization without duplicating schemas or forking query logic. Compound indexes on these fields kept tenant-scoped queries efficient as data volume grew.",
+        result:
+          "Shared financial entities (bank accounts, payees) work across both user and org contexts from a single schema",
+      },
+      {
+        title: "Enforcing a singleton database connection",
+        why: "After schema normalization introduced cross-collection dependencies, a previously hidden issue surfaced: 30+ MongoDB connection instances had accumulated across modules, causing inconsistent Mongoose model registration behavior where certain collections weren't being resolved correctly depending on connection context. The embedded single-collection design had masked this entirely. I enforced a singleton connection pattern — all models registered against one shared instance — which immediately stabilized schema resolution across the entire system.",
+        result:
+          "Eliminated model registration inconsistencies; cross-collection queries became reliable",
+      },
+      {
+        title: "Sequencing refactoring around continuous feature delivery",
+        why: "The hardest part of this project wasn't any single technical decision — it was the ordering. Every architectural change had to be backward compatible with the code still running in production. TypeScript was introduced incrementally: new modules in TypeScript first, legacy modules migrated opportunistically. The API abstraction layer was extracted gradually. Schema normalization happened collection by collection, with dual-read logic bridging old and new shapes during the transition window.",
+        result:
+          "Zero production incidents during the full modernization; system remained stable and shippable throughout",
+      },
+    ],
+    outcomes: [
+      "Migrated server state from Redux to TanStack Query, eliminating redundant sync logic across the frontend",
+      "Normalized MongoDB schema from embedded user documents to multi-tenant collections with a unified ownership model",
+      "Resolved a 30+ connection accumulation bug that had been hidden by the single-tenant schema design",
+      "Introduced TypeScript incrementally — new modules typed from day one, legacy modules migrated during ongoing development",
+      "Built and extracted a centralized API abstraction layer, later released as the open-source axios-auth-client npm package",
+      "Delivered Stripe payment flows, QuickBooks sync, Excel bulk import, and MFA (email + Twilio OTP + authenticator app)",
+      "Built a check register system maintaining running balances per bank account across both user and org contexts",
+      "Shipped all of the above with zero downtime under continuous production constraints",
+    ],
+    takeaway:
+      "Production systems evolve safely through incremental, constraint-aware refactoring. The most impactful engineering decisions are often about sequencing, ownership modeling, and tradeoff management — not isolated technical implementations. The goal was never to build the perfect architecture. It was to move from the architecture we had to the one we needed, without breaking what was already working.",
+  },
+
+  // ── Synccos | Connexabi ───────────────────────────────────────────────────
+  "Synccos | Connexabi": {
+    subtitle:
+      "A contact intelligence and relationship graph platform — redesigned from the ground up after a core ownership model flaw caused user edits to silently mutate shared public entities, corrupting contact data across the entire network.",
+    duration: "Greenfield → Redesign · Pre-launch · Full-stack ownership",
+    metrics: [
+      {
+        label: "Schema layers",
+        value: "3",
+        sub: "public canonical, user-scoped, external contact",
+      },
+      {
+        label: "Field types normalized",
+        value: "3",
+        sub: "emails, phone numbers, addresses extracted to own tables",
+      },
+      {
+        label: "Mutation leakage",
+        value: "Eliminated",
+        sub: "user edits no longer touch public entities",
+      },
+      {
+        label: "Legacy records",
+        value: "Migrated",
+        sub: "full data migration with zero disruption to existing users",
+      },
+    ],
+    metricsNote:
+      "* This was a pre-launch system. Quantitative scale metrics were not yet available; figures reflect architectural scope rather than traffic.",
+    problemLong: [
+      "Connexabi was designed as a contact intelligence system — not a social feed, but a structured graph where each person could exist as a public canonical entity and as a private user-specific context simultaneously. The idea was sound. The data model wasn't.",
+      "When a user added a public contact to their personal network, the system was supposed to create an isolated copy for that user to work with. Instead, due to incorrect reference handling, any edits that user made mutated the original shared public record. One user's changes silently overwrote another's view. Relationship data leaked globally. Contact records drifted into inconsistency across users. The core networking model had no integrity.",
+      "Underneath the bug was a deeper problem: the system had no defined ownership model. There was no clear answer to who owned what, which layer of data was mutable by whom, or how public and private contexts should relate to each other. That ambiguity had to be resolved before any fix would hold.",
+    ],
+    constraints: [
+      {
+        text: "No clear ownership model existed — public vs. user-scoped data boundaries had never been formally defined",
+      },
+      {
+        text: "Product intent was ambiguous — key behaviors (should user edits propagate globally?) had no agreed answer",
+      },
+      {
+        text: "Existing contact records had to be migrated to the new schema without disrupting active users",
+      },
+      {
+        text: "The system needed to support both registered users and external (non-registered) contacts in the same graph",
+      },
+      {
+        text: "Community contributions to public data required moderation — open mutation was not acceptable",
+      },
+      {
+        text: "Relationship data had to be privately scoped per user, not globally visible across the network",
+      },
+    ],
+    architecture: {
+      row1: [
+        {
+          label: "Identity layer",
+          title: "Public canonical contact (immutable)",
+        },
+        {
+          label: "User layer",
+          title: "User-scoped contact instance (private copy)",
+        },
+        {
+          label: "External layer",
+          title: "Non-registered entity with contribution pipeline",
+        },
+      ],
+      row2: [
+        {
+          label: "Contributions",
+          title: "Field-level suggestions + voting system",
+        },
+        {
+          label: "Moderation",
+          title: "Self-verification (registered) + super-admin (external)",
+        },
+        {
+          label: "Relationships",
+          title: "User-scoped graph — private, non-global",
+        },
+      ],
+    },
+    decisions: [
+      {
+        title: "Resolving product ambiguity before touching the code",
+        why: "The mutation bug was a symptom, not the root cause. The root cause was that the team had never agreed on what the system was supposed to do: should a user's edits stay private? Should they improve the shared record? Should registered users control their own public profile? I worked directly with the CEO to get these questions answered explicitly. The outcome: public contact data is immutable by default; users own their private copy; registered contacts can approve contributions to their canonical profile; external contacts go through a moderated voting pipeline. That decision shaped every technical choice that followed.",
+        result:
+          "Product behavior fully specified before implementation; no design reversals during build",
+      },
+      {
+        title: "Introducing user-scoped contact isolation",
+        why: "The fix to mutation leakage wasn't a bug patch — it required a model change. When a user adds a public contact to their network, the system now creates a dedicated user-scoped instance. All edits apply to that instance only. The public canonical record is read-only from the user's perspective. This required new schema entities, updated write paths on the backend, and UI surfaces on the frontend that clearly distinguished between 'your view' and 'the shared record' — Redux Toolkit slices were split to reflect this separation, and RTK Query endpoints were scoped per ownership context.",
+        result:
+          "Cross-user mutation eliminated; each user's network is fully isolated from others",
+      },
+      {
+        title: "Normalizing contact fields into relational tables",
+        why: "The original schema embedded emails, phone numbers, and addresses directly inside contact documents — a flat structure that worked for simple lookups but couldn't support multi-valued attributes, field-level contribution tracking, or clean migration. I extracted each field type into its own normalized table in PostgreSQL via Prisma, enabling structured storage, independent updates, and the contribution voting system to operate at the field level rather than the document level. A full data migration moved all legacy embedded records into the new schema.",
+        result:
+          "Field-level contributions, multi-value attributes, and clean migration all became straightforward",
+      },
+      {
+        title:
+          "Building a two-track moderation pipeline for public data quality",
+        why: "Allowing any user to freely update public contact data would recreate the mutation problem. But blocking all community contributions would make public profiles stale. The solution was two distinct flows: registered contacts review and approve contributions to their own canonical profile (self-verification), while external non-registered contacts go through a field-level suggestion system where contributions are aggregated by votes and reviewed by a super-admin before promotion. This kept public data quality improving without compromising integrity.",
+        result:
+          "Public contact data can improve over time through community input without open mutation risk",
+      },
+    ],
+    outcomes: [
+      "Defined and implemented a three-layer ownership model (public canonical, user-scoped instance, external contact) that eliminated mutation leakage",
+      "Rebuilt the core data model in PostgreSQL + Prisma with normalized contact field tables and user-scoped relationship storage",
+      "Performed a full schema migration of legacy contact records into the new relational structure with no disruption to existing users",
+      "Split frontend state into ownership-aware slices — Redux Toolkit for client state, RTK Query endpoints scoped per contact layer",
+      "Built a two-track moderation pipeline: self-verification for registered contacts, field-level voting + super-admin approval for external ones",
+      "Delivered relationship graph features with strict user-scoped privacy — no relationship data visible across user boundaries",
+      "Resolved product-level ambiguity through direct CEO engagement, producing a formally specified ownership and permission model that guided the entire build",
+    ],
+    takeaway:
+      "In systems built around shared entities, ambiguous ownership is a ticking clock. The mutation bug wasn't a coding error — it was the inevitable consequence of never deciding who owns what. The most important work on this project happened before a line of code was written: getting the ownership model agreed, specified, and documented. Everything else followed from that.",
+  },
+};

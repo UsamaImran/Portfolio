@@ -1,4 +1,4 @@
-import { projects } from "@/lib/data";
+import { projects, caseStudies } from "@/lib/data";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -30,6 +30,20 @@ function ArrowUpRight() {
   );
 }
 
+function ArrowRight() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path
+        d="M2 7h10M8 3l4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function GithubIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -45,8 +59,9 @@ export async function generateStaticParams() {
 export default function ProjectPage({ params }: { params: { slug: string } }) {
   const index = parseInt(params.slug, 10);
   const project = projects[index];
-
   if (!project) notFound();
+
+  const cs = caseStudies[project.title] ?? null;
 
   const prev = projects[index - 1]
     ? { ...projects[index - 1], index: index - 1 }
@@ -85,7 +100,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
       {/* Hero */}
       <div className="pt-32 pb-16 max-w-4xl mx-auto px-6 md:px-12">
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex flex-wrap items-center gap-4 mb-6">
           <span
             className="block w-12 h-px"
             style={{ background: "var(--gold)" }}
@@ -108,10 +123,22 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               Featured
             </span>
           )}
+          {cs && (
+            <span
+              className="text-xs px-2.5 py-1 font-mono tracking-widest uppercase"
+              style={{
+                background: "rgba(26,23,20,0.05)",
+                color: "var(--muted)",
+                border: "1px solid var(--border)",
+              }}
+            >
+              Case Study
+            </span>
+          )}
         </div>
 
         <h1
-          className="font-display font-light mb-6"
+          className="font-display font-light mb-4"
           style={{
             fontSize: "clamp(2.5rem, 7vw, 5rem)",
             color: "var(--ink)",
@@ -122,7 +149,16 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           {project.title}
         </h1>
 
-        <div className="flex flex-wrap gap-2 mb-10">
+        {cs && (
+          <p
+            className="text-base mb-4 max-w-2xl leading-relaxed"
+            style={{ color: "var(--muted)", fontWeight: 300 }}
+          >
+            {cs.subtitle}
+          </p>
+        )}
+
+        <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.filter(Boolean).map((tag, i) => (
             <span
               key={i}
@@ -137,6 +173,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             </span>
           ))}
         </div>
+
+        {cs && (
+          <p
+            className="text-xs font-mono mb-8"
+            style={{ color: "var(--muted)", opacity: 0.7 }}
+          >
+            {cs.duration}
+          </p>
+        )}
 
         <div className="flex flex-wrap gap-4">
           <a
@@ -176,160 +221,402 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         style={{ borderTop: "1px solid var(--border)" }}
       />
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 grid md:grid-cols-[1fr_260px] gap-16">
-        {/* Left */}
-        <div className="space-y-12">
+      {cs ? (
+        /* ── CASE STUDY LAYOUT ── */
+        <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 space-y-16">
+          {/* Metrics */}
           <div>
             <p
-              className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
               style={{ color: "var(--gold)" }}
             >
-              Overview
+              At a Glance
             </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
+              {cs.metrics.map((m, i) => (
+                <div
+                  key={i}
+                  className="p-5 border"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  <p
+                    className="text-xs font-mono mb-2"
+                    style={{ color: "var(--muted)" }}
+                  >
+                    {m.label}
+                  </p>
+                  <p
+                    className="font-display font-light mb-1"
+                    style={{
+                      fontSize: "1.75rem",
+                      color: "var(--gold)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {m.value}
+                  </p>
+                  <p
+                    className="text-xs font-mono leading-snug mt-1"
+                    style={{ color: "var(--muted)", opacity: 0.7 }}
+                  >
+                    {m.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
             <p
-              className="text-lg leading-relaxed"
-              style={{ color: "var(--muted)", fontWeight: 300 }}
+              className="text-xs font-mono"
+              style={{ color: "var(--muted)", opacity: 0.55 }}
             >
-              {project.description}
+              {cs.metricsNote}
             </p>
           </div>
 
+          {/* The Problem */}
           <div>
             <p
-              className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
               style={{ color: "var(--gold)" }}
             >
               The Problem
             </p>
-            <p
-              className="text-base leading-relaxed"
-              style={{ color: "var(--muted)", fontWeight: 300 }}
-            >
-              {project.problem}
-            </p>
+            <div className="space-y-4">
+              {cs.problemLong.map((para, i) => (
+                <p
+                  key={i}
+                  className="text-base leading-relaxed"
+                  style={{ color: "var(--muted)", fontWeight: 300 }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
           </div>
 
+          {/* Constraints */}
           <div>
             <p
-              className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
               style={{ color: "var(--gold)" }}
             >
-              The Solution
+              Constraints
             </p>
-            <p
-              className="text-base leading-relaxed"
-              style={{ color: "var(--muted)", fontWeight: 300 }}
-            >
-              {project.solution}
-            </p>
-          </div>
-
-          <div>
-            <p
-              className="text-xs tracking-[0.2em] uppercase font-mono mb-5"
-              style={{ color: "var(--gold)" }}
-            >
-              Key Features
-            </p>
-            <ul className="space-y-3">
-              {project.features.map((f, i) => (
-                <li key={i} className="flex gap-3 text-sm leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {cs.constraints.map((c, i) => (
+                <div
+                  key={i}
+                  className="flex gap-3 items-start p-4 border"
+                  style={{ borderColor: "var(--border)" }}
+                >
                   <span
-                    className="mt-1.5 flex-shrink-0 w-1 h-1 rounded-full"
+                    className="mt-[6px] flex-shrink-0 w-1.5 h-1.5 rounded-full"
                     style={{ background: "var(--gold)" }}
                   />
-                  <span style={{ color: "var(--muted)", fontWeight: 300 }}>
-                    {f}
+                  <span
+                    className="text-sm leading-relaxed"
+                    style={{ color: "var(--muted)", fontWeight: 300 }}
+                  >
+                    {c.text}
                   </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Architecture */}
+          <div>
+            <p
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
+              style={{ color: "var(--gold)" }}
+            >
+              Architecture Overview
+            </p>
+            <div className="space-y-3">
+              {[cs.architecture.row1, cs.architecture.row2].map((row, ri) => (
+                <div key={ri} className="flex gap-2 items-stretch">
+                  {row.map((node, ni) => (
+                    <div key={ni} className="contents">
+                      <div
+                        className="flex-1 p-4 border"
+                        style={{ borderColor: "var(--border)" }}
+                      >
+                        <p
+                          className="text-xs font-mono mb-1"
+                          style={{ color: "var(--gold)" }}
+                        >
+                          {node.label}
+                        </p>
+                        <p
+                          className="text-sm font-medium"
+                          style={{ color: "var(--ink)" }}
+                        >
+                          {node.title}
+                        </p>
+                      </div>
+                      {ni < row.length - 1 && (
+                        <div
+                          className="flex items-center flex-shrink-0 px-1"
+                          style={{ color: "var(--border)" }}
+                        >
+                          <ArrowRight />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Engineering Decisions */}
+          <div>
+            <p
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-8"
+              style={{ color: "var(--gold)" }}
+            >
+              Key Engineering Decisions
+            </p>
+            <div style={{ marginLeft: "6px" }}>
+              {cs.decisions.map((d, i) => (
+                <div
+                  key={i}
+                  className="relative pl-8 pb-10 last:pb-0"
+                  style={{ borderLeft: "1px solid var(--border)" }}
+                >
+                  <span
+                    className="absolute -left-[5px] top-[5px] w-2.5 h-2.5 rounded-full border-2 flex-shrink-0"
+                    style={{
+                      background: "var(--cream)",
+                      borderColor: "var(--gold)",
+                    }}
+                  />
+                  <p
+                    className="text-sm font-medium mb-2"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    {d.title}
+                  </p>
+                  <p
+                    className="text-sm leading-relaxed mb-3"
+                    style={{ color: "var(--muted)", fontWeight: 300 }}
+                  >
+                    {d.why}
+                  </p>
+                  <span
+                    className="inline-block text-xs font-mono px-3 py-1"
+                    style={{
+                      background: "rgba(184,146,58,0.08)",
+                      color: "var(--gold)",
+                      border: "1px solid rgba(184,146,58,0.2)",
+                    }}
+                  >
+                    {d.result}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Outcomes */}
+          <div>
+            <p
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
+              style={{ color: "var(--gold)" }}
+            >
+              Outcomes
+            </p>
+            <ul>
+              {cs.outcomes.map((o, i) => (
+                <li
+                  key={i}
+                  className="flex gap-3 items-start py-4 text-sm leading-relaxed"
+                  style={{
+                    borderBottom: "1px solid var(--border)",
+                    color: "var(--muted)",
+                    fontWeight: 300,
+                  }}
+                >
+                  <span
+                    className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full"
+                    style={{ background: "var(--gold)" }}
+                  />
+                  {o}
                 </li>
               ))}
             </ul>
           </div>
-        </div>
 
-        {/* Sidebar */}
-        <aside>
-          <div
-            className="p-6 border sticky top-24"
-            style={{ borderColor: "var(--border)" }}
-          >
+          {/* Takeaway */}
+          <div>
             <p
-              className="text-xs tracking-[0.2em] uppercase font-mono mb-5 pb-4 border-b"
-              style={{ color: "var(--muted)", borderColor: "var(--border)" }}
+              className="text-xs tracking-[0.2em] uppercase font-mono mb-6"
+              style={{ color: "var(--gold)" }}
             >
-              Project Info
+              Takeaway
             </p>
-            <div className="space-y-5">
-              <div>
-                <p
-                  className="text-xs font-mono mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Role
-                </p>
-                <p
-                  className="text-sm"
-                  style={{ color: "var(--ink)", fontWeight: 300 }}
-                >
-                  {project.role}
-                </p>
-              </div>
-              <div>
-                <p
-                  className="text-xs font-mono mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Year
-                </p>
-                <p
-                  className="text-sm"
-                  style={{ color: "var(--ink)", fontWeight: 300 }}
-                >
-                  {project.year}
-                </p>
-              </div>
-              <div>
-                <p
-                  className="text-xs font-mono mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Type
-                </p>
-                <p
-                  className="text-sm"
-                  style={{ color: "var(--ink)", fontWeight: 300 }}
-                >
-                  {project.type}
-                </p>
-              </div>
-              <div>
-                <p
-                  className="text-xs font-mono mb-2"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Stack
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.filter(Boolean).map((tag, i) => (
+            <blockquote
+              className="pl-6 py-1 text-base leading-relaxed italic"
+              style={{
+                borderLeft: "2px solid var(--gold)",
+                color: "var(--muted)",
+                fontWeight: 300,
+              }}
+            >
+              &ldquo;{cs.takeaway}&rdquo;
+            </blockquote>
+          </div>
+        </div>
+      ) : (
+        /* ── STANDARD LAYOUT ── */
+        <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 grid md:grid-cols-[1fr_260px] gap-16">
+          <div className="space-y-12">
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+                style={{ color: "var(--gold)" }}
+              >
+                Overview
+              </p>
+              <p
+                className="text-lg leading-relaxed"
+                style={{ color: "var(--muted)", fontWeight: 300 }}
+              >
+                {project.description}
+              </p>
+            </div>
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+                style={{ color: "var(--gold)" }}
+              >
+                The Problem
+              </p>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "var(--muted)", fontWeight: 300 }}
+              >
+                {project.problem}
+              </p>
+            </div>
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-mono mb-4"
+                style={{ color: "var(--gold)" }}
+              >
+                The Solution
+              </p>
+              <p
+                className="text-base leading-relaxed"
+                style={{ color: "var(--muted)", fontWeight: 300 }}
+              >
+                {project.solution}
+              </p>
+            </div>
+            <div>
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-mono mb-5"
+                style={{ color: "var(--gold)" }}
+              >
+                Key Features
+              </p>
+              <ul className="space-y-3">
+                {project.features.map((f, i) => (
+                  <li key={i} className="flex gap-3 text-sm leading-relaxed">
                     <span
-                      key={i}
-                      className="text-xs px-2 py-1 font-mono"
-                      style={{
-                        background: "rgba(184,146,58,0.07)",
-                        color: "var(--muted)",
-                        border: "1px solid var(--border)",
-                      }}
-                    >
-                      {tag}
+                      className="mt-1.5 flex-shrink-0 w-1 h-1 rounded-full"
+                      style={{ background: "var(--gold)" }}
+                    />
+                    <span style={{ color: "var(--muted)", fontWeight: 300 }}>
+                      {f}
                     </span>
-                  ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <aside>
+            <div
+              className="p-6 border sticky top-24"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <p
+                className="text-xs tracking-[0.2em] uppercase font-mono mb-5 pb-4 border-b"
+                style={{ color: "var(--muted)", borderColor: "var(--border)" }}
+              >
+                Project Info
+              </p>
+              <div className="space-y-5">
+                <div>
+                  <p
+                    className="text-xs font-mono mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Role
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--ink)", fontWeight: 300 }}
+                  >
+                    {project.role}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    className="text-xs font-mono mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Year
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--ink)", fontWeight: 300 }}
+                  >
+                    {project.year}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    className="text-xs font-mono mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Type
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--ink)", fontWeight: 300 }}
+                  >
+                    {project.type}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    className="text-xs font-mono mb-2"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Stack
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.filter(Boolean).map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs px-2 py-1 font-mono"
+                        style={{
+                          background: "rgba(184,146,58,0.07)",
+                          color: "var(--muted)",
+                          border: "1px solid var(--border)",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </aside>
-      </div>
+          </aside>
+        </div>
+      )}
 
       {/* Prev / Next */}
       <div className="border-t" style={{ borderColor: "var(--border)" }}>

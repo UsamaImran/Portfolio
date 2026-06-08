@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { projects } from "@/lib/data";
+import { projects, caseStudies } from "@/lib/data";
 import { useReveal } from "@/hooks/useReveal";
 
 function ArrowUpRight() {
@@ -115,7 +115,7 @@ function ProjectCard({
 
         {/* Links */}
         <div
-          className="flex items-center gap-4 pt-5 border-t"
+          className="flex flex-wrap items-center gap-4 pt-5 border-t"
           style={{ borderColor: "var(--border)" }}
         >
           <a
@@ -134,10 +134,25 @@ function ProjectCard({
             Live Demo <ArrowUpRight />
           </a>
 
-          <span
-            className="block w-px h-3"
-            style={{ background: "var(--border)" }}
-          />
+          {caseStudies[project.title] && (
+            <>
+              <span
+                className="block w-px h-3"
+                style={{ background: "var(--border)" }}
+              />
+              <Link
+                href={`/projects/${index}`}
+                className="flex items-center gap-1.5 text-xs font-medium tracking-wide font-mono transition-all duration-200 group/cs"
+                style={{ color: "var(--gold)" }}
+              >
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full transition-transform duration-200 group-hover/cs:scale-125"
+                  style={{ background: "var(--gold)" }}
+                />
+                Deep Dive
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
