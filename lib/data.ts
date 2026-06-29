@@ -1,7 +1,7 @@
 export const personal = {
   name: "Usama Imran",
   title: "Senior Software Engineer",
-  subtitle: "MERN Stack · Full-Stack · 6+ Years",
+  subtitle: "Senior Full-Stack Product Engineer • 6+ Years",
   email: "uusamaimran@gmail.com",
   phone: "+92 305 9182792",
   location: "Lahore, Pakistan",
