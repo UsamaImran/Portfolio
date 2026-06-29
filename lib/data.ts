@@ -7,7 +7,7 @@ export const personal = {
   location: "Lahore, Pakistan",
   linkedin: "https://www.linkedin.com/in/usama-imran-b1ba9b1b2",
   summary:
-    "Accomplished Full-Stack Software Engineer with 6+ years of experience delivering scalable web applications, RESTful APIs, and cloud-enabled solutions across product-based and service-driven environments. Expert in React, Next.js, Node.js, and MERN stack architectures, with a proven track record of improving system performance by 35%, increasing stability by 18%, and leading 20+ feature releases.",
+    "Senior Full-Stack Software Engineer with 6+ years of hands-on experience delivering robust, scalable web applications and SaaS platforms across fintech, service, and product companies. Specialized in modernizing legacy architectures into maintainable, multi-tenant systems while maintaining zero-downtime deployments. Adept at building full-stack solutions with TypeScript, React, Next.js, Node.js, NestJS, and cloud technologies, with a proven track record of improving system performance, stability, and developer experience.",
 };
 
 export const githubLink = "https://github.com/UsamaImran";
