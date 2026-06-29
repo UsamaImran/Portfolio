@@ -1,13 +1,13 @@
 export const personal = {
   name: "Usama Imran",
   title: "Senior Software Engineer",
-  subtitle: "Senior Full-Stack Product Engineer • 6+ Years",
+  subtitle: "Full-Stack Product Engineer • 6+ Years",
   email: "uusamaimran@gmail.com",
   phone: "+92 305 9182792",
   location: "Lahore, Pakistan",
   linkedin: "https://www.linkedin.com/in/usama-imran-b1ba9b1b2",
   summary:
-    "Senior Full-Stack Software Engineer with 6+ years of hands-on experience delivering robust, scalable web applications and SaaS platforms across fintech, service, and product companies. Specialized in modernizing legacy architectures into maintainable, multi-tenant systems while maintaining zero-downtime deployments. Adept at building full-stack solutions with TypeScript, React, Next.js, Node.js, NestJS, and cloud technologies, with a proven track record of improving system performance, stability, and developer experience.",
+    "Senior Full-Stack Software Engineer with 6+ years of experience building and modernizing scalable SaaS platforms and complex web applications. Specialized in incremental refactoring of legacy systems into maintainable multi-tenant architectures under zero-downtime constraints. Strong track record delivering production-grade solutions with TypeScript, React, Next.js, Node.js, and NestJS while consistently improving performance, stability, and developer experience.",
 };
 
 export const githubLink = "https://github.com/UsamaImran";
@@ -130,7 +130,7 @@ export const skills = [
 export const experience = [
   {
     company: "TechRydes",
-    role: "Software Engineer",
+    role: "Software Engineer", // kept as is
     location: "Lahore, Pakistan",
     period: "January 2022 – Present",
     highlights: [
