@@ -6,6 +6,7 @@ import Skills from "@/components/Skills";
 import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import OpenSource from "@/components/OpenSource";
+import CaseStudies from "@/components/CaseStudies";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <OpenSource />
       <Projects />
+      <CaseStudies />
       <Skills />
       <Experience />
       <Education />
