@@ -1,13 +1,13 @@
 export const personal = {
   name: "Usama Imran",
-  title: "Senior Software Engineer",
-  subtitle: "Full-Stack Product Engineer • 6+ Years",
+  title: "Senior Full-Stack Engineer",
+  subtitle: "Product Engineer • System Modernization • 6+ Years",
   email: "uusamaimran@gmail.com",
   phone: "+92 305 9182792",
-  location: "Lahore, Pakistan",
+  location: "Lahore, Pakistan (Open to Relocation)",
   linkedin: "https://www.linkedin.com/in/usama-imran-b1ba9b1b2",
   summary:
-    "Senior Full-Stack Software Engineer with 6+ years of experience building and modernizing scalable SaaS platforms and complex web applications. Specialized in incremental refactoring of legacy systems into maintainable multi-tenant architectures under zero-downtime constraints. Strong track record delivering production-grade solutions with TypeScript, React, Next.js, Node.js, and NestJS while consistently improving performance, stability, and developer experience.",
+    "Senior Full-Stack Engineer with 6+ years of experience building and modernizing complex SaaS platforms and financial systems. Specialized in incremental architecture improvements, multi-tenant systems, and zero-downtime migrations. Passionate about delivering clean, scalable solutions that drive real business value — with strong focus on system design, reliability, and maintainability.",
 };
 
 export const githubLink = "https://github.com/UsamaImran";
