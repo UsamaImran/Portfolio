@@ -248,6 +248,43 @@ export const projects = [
     ],
   },
   {
+    title: "PDF RAG",
+    description:
+      "An end-to-end Retrieval-Augmented Generation system for document-based question answering. Users can upload PDFs, which are asynchronously processed through token-aware chunking and Gemini embeddings before being indexed in MongoDB Atlas Vector Search for grounded, source-cited answers.",
+    tags: [
+      "RAG",
+      "Generative AI",
+      "TypeScript",
+      "Node.js",
+      "Google Gemini",
+      "MongoDB Atlas Vector Search",
+      "RabbitMQ",
+      "Docker",
+      "Storj",
+    ],
+    liveUrl: "",
+    githubUrl: "https://github.com/UsamaImran/pdf-rag",
+    featured: true,
+    role: "AI / Full-Stack Engineer",
+    year: "2026",
+    type: "AI — RAG System",
+    problem:
+      "Users need a reliable way to ask questions about large PDF documents without manually searching through them. Traditional LLM prompting alone cannot reliably provide document-specific answers, while processing documents synchronously creates unnecessary latency and infrastructure coupling.",
+    solution:
+      "Built an asynchronous RAG pipeline that stores uploaded PDFs in S3-compatible object storage, processes them through RabbitMQ workers, extracts and tokenizes text, creates overlapping token-aware chunks, generates Gemini document embeddings, and stores them in MongoDB Atlas Vector Search. At query time, the system embeds the user's question, retrieves the most relevant chunks, constructs grounded context, and generates an answer with source citations.",
+    features: [
+      "Asynchronous PDF ingestion and processing using RabbitMQ",
+      "Token-aware chunking using Gemini-compatible BPE tokenization",
+      "Gemini embeddings with separate RETRIEVAL_DOCUMENT and RETRIEVAL_QUERY task types",
+      "MongoDB Atlas Vector Search using cosine similarity",
+      "Grounded answer generation using retrieved document context",
+      "Source citations returned with every generated answer",
+      "Document processing lifecycle with uploaded, processing, completed, and failed states",
+      "S3-compatible object storage using Storj",
+      "Docker Compose development environment",
+    ],
+  },
+  {
     title: "Synccos | Connexabi",
     description:
       "A modern web-based networking platform that enables professionals to manage contacts, define relationship context, and maintain a structured digital network — a smarter alternative to traditional business cards.",
@@ -801,5 +838,127 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     takeaway:
       "In systems built around shared entities, ambiguous ownership is a ticking clock. The mutation bug wasn't a coding error — it was the inevitable consequence of never deciding who owns what. The most important work on this project happened before a line of code was written: getting the ownership model agreed, specified, and documented. Everything else followed from that.",
+  },
+  "PDF RAG": {
+    subtitle:
+      "An end-to-end Retrieval-Augmented Generation system that turns PDF documents into a searchable knowledge base and generates grounded, source-cited answers using semantic retrieval and Gemini.",
+    duration: "2026 · AI/RAG project · Full-stack ownership",
+    metrics: [
+      {
+        label: "Chunk strategy",
+        value: "800 / 100",
+        sub: "token-aware chunks with overlap",
+      },
+      {
+        label: "Embeddings",
+        value: "3072D",
+        sub: "Gemini embeddings for document and query retrieval",
+      },
+      {
+        label: "Retrieval",
+        value: "Vector",
+        sub: "MongoDB Atlas Vector Search",
+      },
+      {
+        label: "Processing",
+        value: "Async",
+        sub: "RabbitMQ-based document pipeline",
+      },
+    ],
+    metricsNote:
+      "Architecture-focused project demonstrating the complete RAG ingestion, retrieval, and generation pipeline.",
+    problemLong: [
+      "Large PDF documents contain valuable information but are difficult to query efficiently through traditional search. Sending entire documents directly to an LLM is constrained by context size, increases token usage, and makes it difficult to reliably ground answers in the source material.",
+      "The system needed to transform uploaded documents into a searchable semantic knowledge base while keeping document processing asynchronous and separating ingestion from query-time retrieval.",
+    ],
+    constraints: [
+      {
+        text: "Documents needed to be processed asynchronously so uploads could return immediately",
+      },
+      {
+        text: "Chunks needed to respect model token limits rather than relying only on character or word counts",
+      },
+      {
+        text: "Document and query embeddings needed to use the appropriate Gemini retrieval task types",
+      },
+      {
+        text: "Retrieved context needed to remain traceable back to the original document chunks",
+      },
+      {
+        text: "Generated answers needed to be grounded in retrieved context rather than unsupported model knowledge",
+      },
+      {
+        text: "The system needed a vector search layer capable of semantic similarity retrieval",
+      },
+    ],
+    architecture: {
+      row1: [
+        {
+          label: "Ingestion",
+          title: "Express API + S3-compatible object storage",
+        },
+        {
+          label: "Processing",
+          title: "RabbitMQ + asynchronous document consumer",
+        },
+        {
+          label: "Chunking",
+          title: "Gemini-compatible BPE + token-aware chunks",
+        },
+      ],
+      row2: [
+        {
+          label: "Embeddings",
+          title: "Gemini RETRIEVAL_DOCUMENT / RETRIEVAL_QUERY",
+        },
+        {
+          label: "Retrieval",
+          title: "MongoDB Atlas Vector Search",
+        },
+        {
+          label: "Generation",
+          title: "Retrieved context + Gemini grounded answers",
+        },
+      ],
+    },
+    decisions: [
+      {
+        title:
+          "Using token-aware chunking instead of character-based splitting",
+        why: "Embedding and generation models operate within token-based context constraints. I implemented Gemini-compatible BPE tokenization and used an 800-token chunk size with 100-token overlap so chunks could be controlled according to the actual model tokenization rather than arbitrary character counts.",
+        result:
+          "Created predictable chunks that respect model context constraints while preserving contextual overlap between adjacent sections",
+      },
+      {
+        title: "Separating document and query embedding strategies",
+        why: "Gemini provides task-specific embedding modes for retrieval. Documents are embedded using RETRIEVAL_DOCUMENT while user queries use RETRIEVAL_QUERY, aligning indexing and search with the intended semantic retrieval workflow.",
+        result:
+          "Established a retrieval pipeline designed specifically around asymmetric document-to-query semantic search",
+      },
+      {
+        title: "Moving document processing to an asynchronous pipeline",
+        why: "PDF extraction, tokenization, embedding generation, and vector insertion can be expensive operations. Performing them inside the upload request would unnecessarily block the API. RabbitMQ was introduced so the API could persist the document and publish an event while a background consumer handled the ingestion pipeline.",
+        result:
+          "Upload requests remain responsive while document processing runs independently in the background",
+      },
+      {
+        title: "Grounding generation through vector retrieval",
+        why: "The LLM should answer questions using the uploaded documents rather than relying on unrelated model knowledge. At query time, the question is embedded, relevant chunks are retrieved through vector search, and only that retrieved context is passed into the generation step.",
+        result:
+          "Generated answers are tied to retrieved document content and returned alongside source chunk references",
+      },
+    ],
+    outcomes: [
+      "Built a complete PDF-to-RAG pipeline from document upload through grounded answer generation",
+      "Implemented token-aware chunking using Gemini-compatible BPE tokenization",
+      "Integrated Gemini embeddings for both document indexing and query retrieval",
+      "Implemented semantic vector retrieval using MongoDB Atlas Vector Search",
+      "Introduced RabbitMQ-based asynchronous document processing",
+      "Built context construction and grounded answer generation with source citations",
+      "Designed document lifecycle tracking with uploaded, processing, completed, and failed states",
+      "Containerized the development environment using Docker Compose",
+    ],
+    takeaway:
+      "Building a useful RAG system requires more than connecting an LLM to a vector database. The quality of the system depends on the entire retrieval pipeline — document processing, token-aware chunking, embedding strategy, vector retrieval, context construction, and grounded generation. This project provided hands-on implementation across each stage of that pipeline.",
   },
 };
