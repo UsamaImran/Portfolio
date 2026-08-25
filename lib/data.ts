@@ -411,6 +411,7 @@ export const education = {
     "Software Quality Assurance",
     "Software Project Management",
     "Technical Report Writing",
+    "Artificial Intelligence",
     "Introduction to Machine Learning",
   ],
 };
