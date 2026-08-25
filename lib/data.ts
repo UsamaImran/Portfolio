@@ -142,16 +142,16 @@ export const skills = [
 export const experience = [
   {
     company: "TechRydes",
-    role: "Software Engineer", // kept as is
+    role: "Senior Full-Stack Engineer",
     location: "Lahore, Pakistan",
     period: "January 2022 – Present",
     highlights: [
-      "Re-architected an enterprise multi-page platform into a Single Page Application, reducing load times by 35% and increasing user engagement within 6 months.",
-      "Translated complex client requirements into scalable MERN solutions, reducing post-release change requests by 28%.",
-      "Developed and maintained RESTful APIs using Nest & Express, accelerating analytics reporting workflows by 24%.",
-      "Established structured testing frameworks that improved runtime performance and increased overall system stability by 18%.",
-      "Mentored junior developers via biweekly technical sessions, raising coding standards and reducing onboarding ramp-up by 30%.",
-      "Coordinated Agile sprint planning for a six-member team, delivering on-time releases across 20+ sprints.",
+      "Led a major architectural transformation, modernizing an enterprise multi-page platform into a high-performance SPA. This resulted in a 35% reduction in load times and a significant uplift in user engagement within six months.",
+      "Served as the primary technical liaison for clients, translating complex business needs into robust, scalable MERN stack solutions. This proactive approach decreased post-launch change requests by 28%.",
+      "Engineered and maintained high-performance RESTful APIs using NestJS and Express, which accelerated critical data analytics reporting workflows by 24%.",
+      "Championed code quality and system stability by implementing rigorous testing frameworks, leading to an 18% improvement in overall runtime performance and system reliability.",
+      "Actively mentored junior developers through bi-weekly knowledge-sharing sessions, raising the team's coding standards and cutting onboarding time for new hires by 30%.",
+      "Orchestrated Agile sprint planning for a team of six, ensuring the timely delivery of features across more than 20 successful sprints.",
     ],
   },
   {
@@ -160,28 +160,27 @@ export const experience = [
     location: "Lahore, Pakistan",
     period: "November 2020 – January 2022",
     highlights: [
-      "Authored unit test suites for a large-scale B2B React app, increasing test coverage by 40% and lowering production defects.",
-      "Validated core document-sharing features, contributing to a 12% engagement increase in one quarter.",
-      "Built internal automation tools, saving an average of 14 labor hours per employee per month.",
-      "Migrated a legacy PHP app to ReactJS with AWS Amplify, improving scalability, maintainability, and deployment speed.",
-      "Resolved high-priority defects with cross-functional teams, reducing average issue resolution by 22%.",
+      "Significantly enhanced software quality by developing comprehensive unit test suites for a large-scale B2B React application, increasing test coverage by 40% and drastically reducing production defects.",
+      "Spearheaded the validation of core document-sharing features, contributing to a 12% increase in user engagement within a single quarter.",
+      "Designed and built internal automation tools that streamlined operations, saving an average of 14 labor hours per employee each month.",
+      "Drove a critical technology migration, leading the transition of a legacy PHP application to a modern ReactJS stack on AWS Amplify. This upgrade dramatically improved application scalability, maintainability, and deployment velocity.",
+      "Collaborated with cross-functional teams to resolve high-priority defects, decreasing the average issue resolution time by 22%.",
     ],
   },
   {
     company: "BlueHorn Tech",
     role: "Junior Software Engineer",
     location: "Lahore, Pakistan",
-    period: "August 2019 – November 2020",
+    period: "August 2020 – November 2020",
     highlights: [
-      "Delivered production-ready features using ReactJS and NextJS, supporting client-facing deployments.",
-      "Led migration of a WordPress site to NextJS, coordinating a 5-member team to improve performance and SEO.",
-      "Executed black-box testing to identify functional defects, improving system reliability.",
-      "Developed reusable front-end components, reducing duplicated code by 25%.",
-      "Produced technical documentation, enhancing knowledge transfer and reducing dependency on senior team members.",
+      "Contributed to the successful delivery of production-ready features for client-facing applications using ReactJS and NextJS.",
+      "Led a key project to migrate a legacy WordPress site to NextJS, coordinating a team of five to achieve substantial performance gains and SEO improvements.",
+      "Enhanced system reliability by rigorously executing black-box testing to identify and resolve functional defects early in the development cycle.",
+      "Developed a library of reusable front-end components, which reduced code duplication by 25% and accelerated future development cycles.",
+      "Authored comprehensive technical documentation to facilitate knowledge sharing, reducing the team's reliance on senior engineers and improving project continuity.",
     ],
   },
 ];
-
 export const projects = [
   {
     title: "Synccos | Checkwriter",

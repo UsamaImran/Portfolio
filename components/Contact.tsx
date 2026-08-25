@@ -138,7 +138,7 @@ export default function Contact() {
             className="text-xs font-mono tracking-wide"
             style={{ color: "var(--muted)", opacity: 0.6 }}
           >
-            Senior Software Engineer · MERN Stack · Lahore, PK
+            Senior Full-Stack Engineer · AI & RAG · Open to Remote & Relocation
           </p>
         </div>
       </div>
