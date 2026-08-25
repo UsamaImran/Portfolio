@@ -125,6 +125,18 @@ export const skills = [
       "Technical Documentation",
     ],
   },
+  {
+    category: "AI & RAG",
+    items: [
+      "Retrieval-Augmented Generation (RAG)",
+      "Generative AI",
+      "LLMs",
+      "Vector Search",
+      "Embeddings",
+      "Semantic Search",
+      "Prompt Engineering",
+    ],
+  },
 ];
 
 export const experience = [
