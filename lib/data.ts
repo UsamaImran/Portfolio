@@ -60,6 +60,18 @@ export const skills = [
     ],
   },
   {
+    category: "AI & RAG",
+    items: [
+      "Retrieval-Augmented Generation (RAG)",
+      "Generative AI",
+      "LLMs",
+      "Vector Search",
+      "Embeddings",
+      "Semantic Search",
+      "Prompt Engineering",
+    ],
+  },
+  {
     category: "Frontend & UI",
     items: [
       "HTML/CSS",
@@ -123,18 +135,6 @@ export const skills = [
       "Code Review",
       "Performance Optimization",
       "Technical Documentation",
-    ],
-  },
-  {
-    category: "AI & RAG",
-    items: [
-      "Retrieval-Augmented Generation (RAG)",
-      "Generative AI",
-      "LLMs",
-      "Vector Search",
-      "Embeddings",
-      "Semantic Search",
-      "Prompt Engineering",
     ],
   },
 ];
