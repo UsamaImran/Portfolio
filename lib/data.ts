@@ -262,7 +262,7 @@ export const projects = [
       "Docker",
       "Storj",
     ],
-    liveUrl: "",
+    liveUrl: "https://github.com/UsamaImran/pdf-rag",
     githubUrl: "https://github.com/UsamaImran/pdf-rag",
     featured: true,
     role: "AI / Full-Stack Engineer",
