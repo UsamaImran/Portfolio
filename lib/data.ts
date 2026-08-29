@@ -258,12 +258,16 @@ export const projects = [
       "Role-based dashboard for counselors to manage client cases and document status",
     ],
   },
+
   {
-    title: "PDF RAG",
+    title: "PDF-RAG — Hybrid Retrieval-Augmented Generation",
     description:
-      "An end-to-end Retrieval-Augmented Generation system for document-based question answering. Users can upload PDFs, which are asynchronously processed through token-aware chunking and Gemini embeddings before being indexed in MongoDB Atlas Vector Search for grounded, source-cited answers.",
+      "An end-to-end Hybrid Retrieval-Augmented Generation system for document-based question answering. PDFs are asynchronously processed through token-aware chunking and Gemini embeddings, then indexed for both semantic vector search and BM25 keyword retrieval. Results are combined using Reciprocal Rank Fusion (RRF) to improve retrieval quality before generating grounded, source-cited answers.",
     tags: [
       "RAG",
+      "Hybrid Search",
+      "BM25",
+      "RRF",
       "Generative AI",
       "TypeScript",
       "Node.js",
@@ -278,23 +282,27 @@ export const projects = [
     featured: true,
     role: "AI / Full-Stack Engineer",
     year: "2026",
-    type: "AI — RAG System",
+    type: "AI — Hybrid RAG System",
     problem:
-      "Users need a reliable way to ask questions about large PDF documents without manually searching through them. Traditional LLM prompting alone cannot reliably provide document-specific answers, while processing documents synchronously creates unnecessary latency and infrastructure coupling.",
+      "Users need a reliable way to ask questions about large PDF documents without manually searching through them. Vector-only retrieval can capture semantic meaning but may miss exact terminology, identifiers, names, or domain-specific phrases. The system also needed to process documents asynchronously without blocking the upload API.",
     solution:
-      "Built an asynchronous RAG pipeline that stores uploaded PDFs in S3-compatible object storage, processes them through RabbitMQ workers, extracts and tokenizes text, creates overlapping token-aware chunks, generates Gemini document embeddings, and stores them in MongoDB Atlas Vector Search. At query time, the system embeds the user's question, retrieves the most relevant chunks, constructs grounded context, and generates an answer with source citations.",
+      "Built an asynchronous Hybrid RAG pipeline that stores uploaded PDFs in S3-compatible object storage, processes them through RabbitMQ workers, extracts and tokenizes text, creates overlapping token-aware chunks, and generates Gemini document embeddings. Each chunk is indexed for both semantic vector retrieval and BM25 keyword search. At query time, semantic and keyword retrieval run in parallel, their rankings are combined using Reciprocal Rank Fusion (RRF), and the highest-ranked chunks are passed to the LLM to generate grounded answers with source citations.",
     features: [
       "Asynchronous PDF ingestion and processing using RabbitMQ",
       "Token-aware chunking using Gemini-compatible BPE tokenization",
       "Gemini embeddings with separate RETRIEVAL_DOCUMENT and RETRIEVAL_QUERY task types",
-      "MongoDB Atlas Vector Search using cosine similarity",
-      "Grounded answer generation using retrieved document context",
-      "Source citations returned with every generated answer",
+      "MongoDB Atlas Vector Search for semantic retrieval",
+      "BM25 keyword retrieval for exact-term matching",
+      "Hybrid retrieval combining semantic and lexical search",
+      "Reciprocal Rank Fusion (RRF) for combining retrieval rankings",
+      "Grounded answer generation using fused retrieval context",
+      "Source citations returned with generated answers",
       "Document processing lifecycle with uploaded, processing, completed, and failed states",
       "S3-compatible object storage using Storj",
       "Docker Compose development environment",
     ],
   },
+
   {
     title: "Synccos | Connexabi",
     description:
@@ -851,9 +859,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     takeaway:
       "In systems built around shared entities, ambiguous ownership is a ticking clock. The mutation bug wasn't a coding error — it was the inevitable consequence of never deciding who owns what. The most important work on this project happened before a line of code was written: getting the ownership model agreed, specified, and documented. Everything else followed from that.",
   },
-  "PDF RAG": {
+
+  "PDF-RAG — Hybrid Retrieval-Augmented Generation": {
     subtitle:
-      "An end-to-end Retrieval-Augmented Generation system that turns PDF documents into a searchable knowledge base and generates grounded, source-cited answers using semantic retrieval and Gemini.",
+      "An end-to-end Hybrid Retrieval-Augmented Generation system that combines semantic vector search and BM25 keyword retrieval to turn PDF documents into a searchable knowledge base and generate grounded, source-cited answers.",
     duration: "2026 · AI/RAG project · Full-stack ownership",
     metrics: [
       {
@@ -868,20 +877,20 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         label: "Retrieval",
-        value: "Vector",
-        sub: "MongoDB Atlas Vector Search",
+        value: "Hybrid",
+        sub: "Vector Search + BM25",
       },
       {
-        label: "Processing",
-        value: "Async",
-        sub: "RabbitMQ-based document pipeline",
+        label: "Fusion",
+        value: "RRF",
+        sub: "Reciprocal Rank Fusion for result ranking",
       },
     ],
     metricsNote:
-      "Architecture-focused project demonstrating the complete RAG ingestion, retrieval, and generation pipeline.",
+      "Architecture-focused project demonstrating asynchronous ingestion, hybrid retrieval, rank fusion, and grounded generation.",
     problemLong: [
       "Large PDF documents contain valuable information but are difficult to query efficiently through traditional search. Sending entire documents directly to an LLM is constrained by context size, increases token usage, and makes it difficult to reliably ground answers in the source material.",
-      "The system needed to transform uploaded documents into a searchable semantic knowledge base while keeping document processing asynchronous and separating ingestion from query-time retrieval.",
+      "A vector-only retrieval approach can identify semantically similar content, but semantic similarity is not always enough. Exact terminology, names, identifiers, technical phrases, and domain-specific keywords can be better captured through lexical search. The system therefore needed to combine semantic and keyword retrieval while keeping document processing asynchronous.",
     ],
     constraints: [
       {
@@ -894,13 +903,16 @@ export const caseStudies: Record<string, CaseStudy> = {
         text: "Document and query embeddings needed to use the appropriate Gemini retrieval task types",
       },
       {
+        text: "Retrieval needed to capture both semantic meaning and exact keyword matches",
+      },
+      {
+        text: "Results from different retrieval strategies needed to be combined without relying on incompatible raw score scales",
+      },
+      {
         text: "Retrieved context needed to remain traceable back to the original document chunks",
       },
       {
         text: "Generated answers needed to be grounded in retrieved context rather than unsupported model knowledge",
-      },
-      {
-        text: "The system needed a vector search layer capable of semantic similarity retrieval",
       },
     ],
     architecture: {
@@ -920,16 +932,16 @@ export const caseStudies: Record<string, CaseStudy> = {
       ],
       row2: [
         {
-          label: "Embeddings",
-          title: "Gemini RETRIEVAL_DOCUMENT / RETRIEVAL_QUERY",
+          label: "Semantic",
+          title: "Gemini embeddings + MongoDB Atlas Vector Search",
         },
         {
-          label: "Retrieval",
-          title: "MongoDB Atlas Vector Search",
+          label: "Keyword",
+          title: "BM25 lexical retrieval",
         },
         {
-          label: "Generation",
-          title: "Retrieved context + Gemini grounded answers",
+          label: "Fusion",
+          title: "Reciprocal Rank Fusion → Top-K context → Gemini",
         },
       ],
     },
@@ -942,35 +954,43 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Created predictable chunks that respect model context constraints while preserving contextual overlap between adjacent sections",
       },
       {
-        title: "Separating document and query embedding strategies",
-        why: "Gemini provides task-specific embedding modes for retrieval. Documents are embedded using RETRIEVAL_DOCUMENT while user queries use RETRIEVAL_QUERY, aligning indexing and search with the intended semantic retrieval workflow.",
+        title: "Combining semantic and lexical retrieval",
+        why: "Vector search is effective at understanding conceptual similarity, but it can underperform when a query depends on exact terminology, names, identifiers, or technical phrases. I introduced BM25 keyword retrieval alongside vector search so the system could retrieve both semantically relevant and exact-term matches.",
         result:
-          "Established a retrieval pipeline designed specifically around asymmetric document-to-query semantic search",
+          "Improved retrieval coverage by combining conceptual relevance with exact keyword matching",
+      },
+      {
+        title: "Using Reciprocal Rank Fusion instead of merging raw scores",
+        why: "Vector similarity and BM25 produce scores with different meanings and scales, making direct score comparison unreliable. Rather than attempting arbitrary score normalization, I used Reciprocal Rank Fusion to combine the ranked results from both retrieval strategies based on their positions in each result set.",
+        result:
+          "Produced a unified ranking that favors documents appearing highly across both semantic and keyword retrieval",
       },
       {
         title: "Moving document processing to an asynchronous pipeline",
-        why: "PDF extraction, tokenization, embedding generation, and vector insertion can be expensive operations. Performing them inside the upload request would unnecessarily block the API. RabbitMQ was introduced so the API could persist the document and publish an event while a background consumer handled the ingestion pipeline.",
+        why: "PDF extraction, tokenization, embedding generation, and indexing can be expensive operations. Performing them inside the upload request would unnecessarily block the API. RabbitMQ was introduced so the API could persist the document and publish an event while a background consumer handled the ingestion pipeline.",
         result:
           "Upload requests remain responsive while document processing runs independently in the background",
       },
       {
-        title: "Grounding generation through vector retrieval",
-        why: "The LLM should answer questions using the uploaded documents rather than relying on unrelated model knowledge. At query time, the question is embedded, relevant chunks are retrieved through vector search, and only that retrieved context is passed into the generation step.",
+        title: "Grounding generation through hybrid retrieval",
+        why: "The LLM should answer questions using the uploaded documents rather than relying on unrelated model knowledge. At query time, the question is used for both semantic and lexical retrieval, the resulting rankings are fused through RRF, and the highest-ranked chunks are passed into the generation step.",
         result:
-          "Generated answers are tied to retrieved document content and returned alongside source chunk references",
+          "Generated answers are grounded in a broader and more precise retrieval context and returned alongside source chunk references",
       },
     ],
     outcomes: [
       "Built a complete PDF-to-RAG pipeline from document upload through grounded answer generation",
       "Implemented token-aware chunking using Gemini-compatible BPE tokenization",
-      "Integrated Gemini embeddings for both document indexing and query retrieval",
-      "Implemented semantic vector retrieval using MongoDB Atlas Vector Search",
+      "Integrated Gemini embeddings for document indexing and query retrieval",
+      "Implemented semantic retrieval using MongoDB Atlas Vector Search",
+      "Added BM25 keyword retrieval for exact-term matching",
+      "Combined semantic and keyword rankings using Reciprocal Rank Fusion (RRF)",
       "Introduced RabbitMQ-based asynchronous document processing",
       "Built context construction and grounded answer generation with source citations",
       "Designed document lifecycle tracking with uploaded, processing, completed, and failed states",
       "Containerized the development environment using Docker Compose",
     ],
     takeaway:
-      "Building a useful RAG system requires more than connecting an LLM to a vector database. The quality of the system depends on the entire retrieval pipeline — document processing, token-aware chunking, embedding strategy, vector retrieval, context construction, and grounded generation. This project provided hands-on implementation across each stage of that pipeline.",
+      "Building a useful RAG system requires more than connecting an LLM to a vector database. Retrieval quality depends on the entire pipeline — document processing, token-aware chunking, embedding strategy, lexical retrieval, semantic retrieval, rank fusion, context construction, and grounded generation. The Hybrid RAG architecture demonstrates how combining complementary retrieval strategies can produce a more robust search layer than relying on semantic similarity alone.",
   },
 };
