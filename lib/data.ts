@@ -302,6 +302,56 @@ export const projects = [
       "Docker Compose development environment",
     ],
   },
+  {
+    title: "Schema-Mind — Schema-Aware RAG for Text-to-SQL",
+    description:
+      "A schema-aware RAG system that converts natural-language questions into safe, executable SQL against relational databases. It introspects live PostgreSQL and MySQL schemas, builds semantic units and a foreign-key graph, and stores them in MongoDB Atlas for hybrid retrieval. At query time, semantic search, keyword search, Reciprocal Rank Fusion (RRF), and graph expansion work together to retrieve the most relevant schema context before Gemini generates dialect-aware, read-only SQL. Generated queries pass structural, safety, and semantic validation before execution.",
+    tags: [
+      "RAG",
+      "Text-to-SQL",
+      "Hybrid Search",
+      "Semantic Search",
+      "Keyword Search",
+      "RRF",
+      "Graph RAG",
+      "Generative AI",
+      "Google Gemini",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB Atlas",
+      "RabbitMQ",
+      "Docker",
+    ],
+    liveUrl: "https://github.com/UsamaImran/schema-mind",
+    githubUrl: "https://github.com/UsamaImran/schema-mind",
+    featured: true,
+    role: "AI / Full-Stack Engineer",
+    year: "2026",
+    type: "AI — Schema-Aware RAG",
+    problem:
+      "LLMs can generate syntactically valid SQL while referencing tables, columns, or relationships that do not exist in the target database. A static schema index also becomes stale as databases evolve. The system needed to retrieve the right schema context, understand relationships between tables, keep its knowledge synchronized with the live database, and prevent unsafe or invalid SQL from reaching execution.",
+    solution:
+      "Built a schema-aware RAG pipeline where PostgreSQL and MySQL remain the source of truth. Live schema introspection captures tables, columns, keys, relationships, and indexes, while semantic units and a foreign-key graph are indexed in MongoDB Atlas. Query-time retrieval combines vector search, keyword search, RRF, and foreign-key graph expansion with distance-decayed boosting. Gemini then generates dialect-aware SQL constrained to a single read-only SELECT, followed by structural, safety, and semantic validation before execution.",
+    features: [
+      "Live schema introspection for PostgreSQL and MySQL",
+      "Automatic schema synchronization with change detection",
+      "PostgreSQL LISTEN/NOTIFY + DDL event trigger integration",
+      "MySQL fingerprint-based schema change detection",
+      "Semantic vector retrieval using Gemini embeddings",
+      "Keyword retrieval with Reciprocal Rank Fusion (RRF)",
+      "Foreign-key graph expansion with distance-decayed boosting",
+      "Final relevance ranking of retrieved schema",
+      "Dialect-aware SQL generation using Gemini",
+      "Structural SQL validation using node-sql-parser",
+      "Safety validation against destructive statements and injection patterns",
+      "Semantic SQL quality evaluation",
+      "Read-only execution with row limits and timeouts",
+      "Modular architecture designed for additional relational databases",
+      "Dockerized local development environment",
+    ],
+  },
 
   {
     title: "Synccos | Connexabi",
@@ -992,5 +1042,150 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     takeaway:
       "Building a useful RAG system requires more than connecting an LLM to a vector database. Retrieval quality depends on the entire pipeline — document processing, token-aware chunking, embedding strategy, lexical retrieval, semantic retrieval, rank fusion, context construction, and grounded generation. The Hybrid RAG architecture demonstrates how combining complementary retrieval strategies can produce a more robust search layer than relying on semantic similarity alone.",
+  },
+  "Schema-Mind — Schema-Aware RAG for Text-to-SQL": {
+    subtitle:
+      "A schema-aware Retrieval-Augmented Generation system that combines semantic search, keyword retrieval, Reciprocal Rank Fusion, and foreign-key graph expansion to retrieve the right database context before generating safe, executable SQL.",
+    duration: "2026 · AI/RAG project · Full-stack ownership",
+    metrics: [
+      {
+        label: "Retrieval",
+        value: "Hybrid + Graph",
+        sub: "vector + keyword + RRF + FK expansion",
+      },
+      {
+        label: "Databases",
+        value: "2",
+        sub: "PostgreSQL + MySQL",
+      },
+      {
+        label: "Validation",
+        value: "3 layers",
+        sub: "structural + safety + semantic",
+      },
+      {
+        label: "Execution",
+        value: "Read-only",
+        sub: "row limits + query timeouts",
+      },
+    ],
+    metricsNote:
+      "Architecture-focused project demonstrating schema-aware retrieval, graph-based context expansion, automatic synchronization, and guarded Text-to-SQL generation.",
+    problemLong: [
+      "Natural-language to SQL is not only a generation problem. An LLM may understand SQL syntax while still producing queries against tables, columns, or relationships that do not exist in the target database. Supplying an entire schema to the model also becomes inefficient as schema size grows.",
+      "The retrieval problem is therefore to identify the smallest useful subset of the database structure for a user's question. Simple semantic similarity is not sufficient on its own: exact table and column names matter, while foreign-key relationships can reveal additional tables required to answer a question correctly.",
+      "A second challenge is freshness. Database schemas evolve continuously, so a retrieval index that is not synchronized with the live database can provide stale context and lead to invalid SQL. The system needed automatic schema change detection and asynchronous re-ingestion while keeping the database itself as the source of truth.",
+    ],
+    constraints: [
+      {
+        text: "PostgreSQL and MySQL had to remain the authoritative sources of schema information",
+      },
+      {
+        text: "Retrieval needed to combine semantic relevance with exact keyword matching",
+      },
+      {
+        text: "Related tables needed to be discoverable through foreign-key relationships",
+      },
+      {
+        text: "The retrieval layer needed to stay synchronized as the underlying schema changed",
+      },
+      {
+        text: "Generated SQL had to be restricted to a single read-only SELECT",
+      },
+      {
+        text: "Queries had to pass structural, safety, and semantic checks before execution",
+      },
+      {
+        text: "Execution needed row limits and timeouts to reduce operational risk",
+      },
+      {
+        text: "The architecture needed to remain extensible to additional relational databases",
+      },
+    ],
+    architecture: {
+      row1: [
+        {
+          label: "Source",
+          title: "PostgreSQL + MySQL schema introspection",
+        },
+        {
+          label: "Semantic",
+          title: "Gemini embeddings + MongoDB Atlas Vector Search",
+        },
+        {
+          label: "Keyword",
+          title: "Keyword retrieval + Reciprocal Rank Fusion",
+        },
+      ],
+      row2: [
+        {
+          label: "Graph",
+          title: "Foreign-key expansion with distance-decayed boosting",
+        },
+        {
+          label: "Generation",
+          title: "Gemini + dialect-aware read-only SQL",
+        },
+        {
+          label: "Validation",
+          title: "Structural + safety + semantic evaluation",
+        },
+      ],
+    },
+    decisions: [
+      {
+        title: "Combining semantic and keyword retrieval",
+        why: "Schema retrieval depends on both meaning and exact identifiers. A natural-language query may describe a concept semantically, while the database expresses that concept through exact table and column names. I therefore combined vector retrieval with keyword retrieval and used Reciprocal Rank Fusion to merge their ranked results without relying on incompatible raw score scales.",
+        result:
+          "Retrieval can capture both conceptual relevance and exact database terminology",
+      },
+      {
+        title: "Expanding retrieval through the foreign-key graph",
+        why: "Relevant schema is often distributed across related tables. After the initial hybrid retrieval stage, the system expands through foreign-key relationships up to a bounded depth, applying distance-decayed boosting so directly relevant tables remain dominant while nearby relational context can still be included.",
+        result:
+          "The generator receives related schema context without treating every table in the database as equally relevant",
+      },
+      {
+        title: "Keeping the database as the source of truth",
+        why: "MongoDB is used as the retrieval layer, not as an authoritative representation of the database. The system introspects the live relational database and uses that structure to build its semantic units and graph, ensuring the AI layer remains grounded in the actual schema.",
+        result:
+          "The retrieval index represents the database rather than becoming a competing source of truth",
+      },
+      {
+        title: "Automatically synchronizing schema changes",
+        why: "A static ingestion process would eventually diverge from the live database. PostgreSQL uses DDL event triggers with LISTEN/NOTIFY, while MySQL uses fingerprint-based change detection, allowing schema changes to trigger re-ingestion automatically.",
+        result:
+          "The retrieval layer can evolve with the underlying database instead of depending on manual re-indexing",
+      },
+      {
+        title: "Validating SQL before execution",
+        why: "Even grounded generation can produce malformed or unsafe SQL. The generated query therefore passes through structural validation, safety checks, and semantic quality evaluation before execution. Only queries that satisfy all gates are allowed to proceed.",
+        result:
+          "Unsafe, malformed, or schema-inconsistent queries are blocked before reaching the database",
+      },
+      {
+        title: "Separating generation from execution safety",
+        why: "The LLM should not be trusted as the final authority over what can execute. SQL generation is constrained to a single read-only SELECT, while a separate execution layer enforces read-only mode, row limits, and timeouts.",
+        result:
+          "The system treats generated SQL as untrusted input until it passes independent validation and execution controls",
+      },
+    ],
+    outcomes: [
+      "Built a complete schema-aware RAG pipeline from live database introspection through SQL execution",
+      "Implemented semantic retrieval using Gemini embeddings and MongoDB Atlas Vector Search",
+      "Added keyword retrieval and Reciprocal Rank Fusion for hybrid ranking",
+      "Implemented foreign-key graph expansion with bounded depth and distance-decayed boosting",
+      "Built automatic schema synchronization for PostgreSQL and MySQL",
+      "Integrated PostgreSQL DDL event triggers with LISTEN/NOTIFY for event-driven schema updates",
+      "Implemented dialect-aware SQL generation with Gemini",
+      "Added structural SQL validation using node-sql-parser",
+      "Added safety validation for destructive statements, stacked queries, and common injection patterns",
+      "Added semantic SQL quality evaluation before execution",
+      "Implemented read-only execution with row limits and query timeouts",
+      "Designed database adapters to support additional relational database engines",
+      "Containerized the development environment with Docker Compose",
+    ],
+    takeaway:
+      "Schema-aware Text-to-SQL is fundamentally a retrieval and control problem as much as a generation problem. Semantic search finds conceptual matches, keyword search captures exact schema terminology, and graph expansion reconstructs the relationships needed for multi-table reasoning. Combined with automatic synchronization and independent SQL validation, the result is a retrieval layer that stays grounded in the live database instead of relying on the LLM's assumptions.",
   },
 };
