@@ -262,7 +262,7 @@ export const projects = [
   {
     title: "PDF-RAG — Retrieval-Augmented Generation",
     description:
-      "An end-to-end Retrieval-Augmented Generation system for PDF question answering. It uses token-aware chunking, local BGE embeddings, hybrid vector and keyword retrieval with Reciprocal Rank Fusion (RRF), context construction, grounded generation, structured LLM evaluation, and optional feedback-based self-correction.",
+      "An end-to-end Retrieval-Augmented Generation system for PDF question answering. It uses token-aware chunking, local BGE embeddings, hybrid vector and keyword retrieval with Reciprocal Rank Fusion (RRF), Gemini-powered generation and evaluation, and optional feedback-based self-correction.",
     tags: [
       "RAG",
       "Hybrid Search",
@@ -275,6 +275,7 @@ export const projects = [
       "Node.js",
       "FastEmbed",
       "BGE Base",
+      "Google Gemini",
       "MongoDB Atlas Vector Search",
       "RabbitMQ",
       "Docker",
@@ -289,7 +290,7 @@ export const projects = [
     problem:
       "Users need a reliable way to ask questions about large PDF documents without manually searching through them. Vector-only retrieval can capture semantic meaning but may miss exact terminology, identifiers, names, or domain-specific phrases. The system also needed asynchronous processing, grounded answers, and a way to evaluate and revise generated responses.",
     solution:
-      "Built an asynchronous RAG pipeline that stores uploaded PDFs in S3-compatible object storage, processes them through RabbitMQ workers, extracts and tokenizes text, creates overlapping token-aware chunks, and generates local BGE embeddings. Each chunk is indexed for semantic vector retrieval and BM25 keyword search. At query time, the rankings are fused with RRF, the resulting context is passed to the generator, and the answer is evaluated for faithfulness, relevance, completeness, and context sufficiency. An optional bounded feedback loop revises weak answers and evaluates them again.",
+      "Built an asynchronous RAG pipeline that stores uploaded PDFs in S3-compatible object storage, processes them through RabbitMQ workers, extracts and tokenizes text, creates overlapping token-aware chunks, and generates local BGE embeddings. Each chunk is indexed for semantic vector retrieval and BM25 keyword search. At query time, rankings are fused with RRF, the resulting context is passed to Gemini for grounded generation, and Gemini evaluates the answer for faithfulness, relevance, completeness, and context sufficiency. An optional bounded feedback loop revises weak answers and evaluates them again.",
     features: [
       "Asynchronous PDF ingestion and processing using RabbitMQ",
       "Token-aware chunking using BPE tokenization",
@@ -298,8 +299,8 @@ export const projects = [
       "BM25 keyword retrieval for exact-term matching",
       "Hybrid retrieval combining semantic and lexical search",
       "Reciprocal Rank Fusion (RRF) for combining retrieval rankings",
-      "Grounded answer generation using fused retrieval context",
-      "Structured LLM evaluation for faithfulness, relevance, completeness, and context sufficiency",
+      "Grounded answer generation using fused retrieval context with Gemini",
+      "Gemini-based structured LLM evaluation for faithfulness, relevance, completeness, and context sufficiency",
       "Optional bounded feedback loop for answer revision and re-evaluation",
       "Source citations returned with generated answers",
       "Document processing lifecycle with uploaded, processing, completed, and failed states",
@@ -917,7 +918,7 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   "PDF-RAG — Retrieval-Augmented Generation": {
     subtitle:
-      "An end-to-end Retrieval-Augmented Generation system that combines local semantic embeddings, vector search, and BM25 keyword retrieval to turn PDF documents into a searchable knowledge base and generate grounded, evaluated, source-cited answers.",
+      "An end-to-end Retrieval-Augmented Generation system that combines local BGE embeddings, vector search, BM25 keyword retrieval, and Gemini generation/evaluation to turn PDF documents into a searchable knowledge base and generate grounded, evaluated, source-cited answers.",
     duration: "2026 · AI/RAG project · Full-stack ownership",
     metrics: [
       {
@@ -956,7 +957,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         text: "Chunks needed to respect model token limits rather than relying only on character or word counts",
       },
       {
-        text: "Embedding generation needed to run locally without depending on an external embedding API",
+        text: "Embedding generation needed to run locally without depending on an external embedding API, while Gemini remained the generation and evaluation model",
       },
       {
         text: "Retrieval needed to capture both semantic meaning and exact keyword matches",
@@ -997,7 +998,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         },
         {
           label: "Generation",
-          title: "RRF → Context Builder → Generator + Evaluator",
+          title: "RRF → Context Builder → Gemini Generator + Evaluator",
         },
       ],
     },
@@ -1011,7 +1012,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         title: "Running embeddings locally",
-        why: "Embedding generation is part of the retrieval pipeline, so I moved it from a hosted embedding API to a local BGE model through FastEmbed. This removes the embedding API dependency and keeps document and query embedding generation offline.",
+        why: "Embedding generation is part of the retrieval pipeline, so I moved it from a hosted embedding API to a local BGE model through FastEmbed. This removes the embedding API dependency while keeping Gemini for answer generation and evaluation.",
         result:
           "Semantic retrieval runs locally with 768-dimensional BGE embeddings while the retrieval architecture remains unchanged",
       },
@@ -1044,7 +1045,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Grounding generation through hybrid retrieval",
         why: "The LLM should answer questions using the uploaded documents rather than relying on unrelated model knowledge. At query time, semantic and lexical retrieval rankings are fused through RRF, the resulting context is passed to the generation step, and source references remain attached to the retrieved chunks.",
         result:
-          "Generated answers are grounded in retrieved document context and returned alongside source chunk references",
+          "Gemini-generated answers are grounded in retrieved document context and returned alongside source chunk references",
       },
     ],
     outcomes: [
